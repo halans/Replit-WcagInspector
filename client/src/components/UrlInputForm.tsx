@@ -183,27 +183,28 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
             />
             
             <div className="flex items-center pt-2">
-              <input 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={isAnalyzing}
-                value={isAnalyzing ? "Analyzing Website..." : "Analyze Accessibility"}
                 aria-label="Analyze website accessibility"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-6 px-6 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto cursor-pointer
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-                focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
-              />
-              {/* Display icons next to the input button */}
-              <div className="relative" style={{ marginLeft: "-80px", pointerEvents: "none" }}>
+                tabIndex={0} /* Explicitly set tabIndex to make it keyboard focusable */
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-6 px-6 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto
+                focus:outline-2 focus:outline-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              >
                 {isAnalyzing ? (
-                  <Loader2 className="h-5 w-5 animate-spin text-white" />
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    <span>Analyzing Website...</span>
+                  </>
                 ) : (
-                  <div className="flex items-center">
-                    <SearchIcon className="h-5 w-5 text-white" />
-                    <ArrowRight className="ml-2 h-5 w-5 text-white" />
-                  </div>
+                  <>
+                    <SearchIcon className="mr-2 h-5 w-5" />
+                    <span>Analyze Accessibility</span>
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </>
                 )}
-              </div>
+              </Button>
             </div>
           </form>
         </Form>
