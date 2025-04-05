@@ -15,11 +15,12 @@ import { useToast } from "@/hooks/use-toast";
 const formSchema = z.object({
   url: z.string().min(1, "URL is required").refine(
     (value) => {
-      // Accept any non-empty URL input - the browser and server will handle validation
+      // Basic URL validation to check if it looks like a domain
       // This allows complex URLs like www.w3.org/WAI/demos/bad/before/home.html
-      return value.trim().length > 0;
+      const urlPattern = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?$/;
+      return urlPattern.test(value.trim());
     },
-    { message: "Please enter a valid URL" }
+    { message: "Please enter a valid URL (e.g., example.com)" }
   )
 });
 
@@ -182,25 +183,27 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
             />
             
             <div className="flex items-center pt-2">
-              <Button 
+              <input 
                 type="submit" 
                 disabled={isAnalyzing}
+                value={isAnalyzing ? "Analyzing Website..." : "Analyze Accessibility"}
                 aria-label="Analyze website accessibility"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-6 px-6 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              >
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-6 px-6 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto cursor-pointer
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+                focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
+              />
+              {/* Display icons next to the input button */}
+              <div className="relative" style={{ marginLeft: "-80px", pointerEvents: "none" }}>
                 {isAnalyzing ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    <span>Analyzing Website...</span>
-                  </>
+                  <Loader2 className="h-5 w-5 animate-spin text-white" />
                 ) : (
-                  <>
-                    <SearchIcon className="mr-2 h-5 w-5" />
-                    <span>Analyze Accessibility</span>
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </>
+                  <div className="flex items-center">
+                    <SearchIcon className="h-5 w-5 text-white" />
+                    <ArrowRight className="ml-2 h-5 w-5 text-white" />
+                  </div>
                 )}
-              </Button>
+              </div>
             </div>
           </form>
         </Form>
