@@ -1,10 +1,14 @@
-import { InfoIcon, CheckSquare, AlertTriangle, Lightbulb, AccessibilityIcon, BarChart3, FileCode, Globe, Sparkles } from "lucide-react";
+import { InfoIcon, CheckSquare, AlertTriangle, Lightbulb, AccessibilityIcon, BarChart3, FileCode, Globe, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function IntroSection() {
+  const [isToolInfoExpanded, setIsToolInfoExpanded] = useState(false);
+  
   return (
     <section className="mb-12">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50/80 via-indigo-50/80 to-blue-50/80 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-blue-950/30 border border-blue-100 dark:border-blue-900/30 p-8 md:py-12 md:px-16 mb-10 shadow-sm">
@@ -95,28 +99,113 @@ export default function IntroSection() {
       
       <Separator className="my-6" />
       
-      <Alert variant="default" className="bg-blue-50 border-blue-100 text-blue-700 dark:bg-blue-950/50 dark:border-blue-800/60 dark:text-blue-300 shadow-sm">
-        <InfoIcon className="h-5 w-5" />
-        <AlertTitle className="text-blue-800 dark:text-blue-300 font-medium">About This Tool</AlertTitle>
-        <AlertDescription className="text-blue-700/90 dark:text-blue-300/90">
-          <p className="mb-2">
-            This tool analyzes websites against nine specific WCAG 2.2 success criteria that were newly introduced
-            or updated in the latest standard. These include:
-          </p>
-          <ul className="list-disc pl-5 mb-2 space-y-1 text-sm">
-            <li>Focus Not Obscured (Minimum & Enhanced)</li>
-            <li>Focus Appearance</li>
-            <li>Dragging Movements</li>
-            <li>Target Size (Minimum)</li>
-            <li>Consistent Help</li>
-            <li>Redundant Entry</li>
-            <li>Accessible Authentication (Minimum & Enhanced)</li>
-          </ul>
-          <p>
-            Future versions may expand to cover all 78 WCAG success criteria. For comprehensive accessibility audits, 
-            we recommend combining these automated checks with manual testing.
-          </p>
-        </AlertDescription>
+      <Alert variant="default" className="bg-blue-50 border-blue-100 text-blue-700 dark:bg-blue-950/50 dark:border-blue-800/60 dark:text-blue-300 shadow-sm overflow-hidden">
+        <div className="flex items-start">
+          <InfoIcon className="h-5 w-5 mt-0.5" />
+          <div className="flex-1 ml-3">
+            <div className="flex justify-between items-center">
+              <AlertTitle className="text-blue-800 dark:text-blue-300 font-medium">About This Tool</AlertTitle>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setIsToolInfoExpanded(!isToolInfoExpanded)}
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-100/50 dark:hover:bg-blue-900/30
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 -mr-2"
+                aria-expanded={isToolInfoExpanded}
+                aria-controls="tool-info-content"
+              >
+                {isToolInfoExpanded ? 
+                  <ChevronUp className="h-5 w-5" /> : 
+                  <ChevronDown className="h-5 w-5" />
+                }
+              </Button>
+            </div>
+            
+            <AlertDescription className="text-blue-700/90 dark:text-blue-300/90">
+              <div className={isToolInfoExpanded ? "mt-2" : ""}>
+                <p className="mb-2">
+                  This tool analyzes websites against 27 WCAG 2.2 success criteria, including all of the new criteria 
+                  introduced in the latest standard, organized by the four WCAG principles: Perceivable, Operable, 
+                  Understandable, and Robust.
+                </p>
+                
+                {isToolInfoExpanded && (
+                  <div id="tool-info-content">
+                    <p className="font-medium mt-4 mb-2">Key WCAG 2.2 Success Criteria Covered:</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+                      <div>
+                        <h4 className="text-sm font-semibold mb-1 text-blue-800 dark:text-blue-300">Perceivable</h4>
+                        <ul className="list-disc pl-5 mb-3 space-y-1 text-sm">
+                          <li>Non-text Content</li>
+                          <li>Audio/Video Media</li>
+                          <li>Information Relationships</li>
+                          <li>Use of Color</li>
+                          <li>Contrast (Minimum)</li>
+                          <li>Resize Text</li>
+                        </ul>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-sm font-semibold mb-1 text-blue-800 dark:text-blue-300">Operable</h4>
+                        <ul className="list-disc pl-5 mb-3 space-y-1 text-sm">
+                          <li>Keyboard Accessibility</li>
+                          <li>Timing Adjustable</li>
+                          <li>Three Flashes</li>
+                          <li>Bypass Blocks</li>
+                          <li>Page Titled</li>
+                          <li>Focus Order</li>
+                          <li>Link Purpose</li>
+                          <li>Focus Visible</li>
+                          <li>Focus Not Obscured (Min & Enhanced)</li>
+                          <li>Focus Appearance</li>
+                          <li>Dragging Movements</li>
+                          <li>Target Size (Minimum)</li>
+                        </ul>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-sm font-semibold mb-1 text-blue-800 dark:text-blue-300">Understandable</h4>
+                        <ul className="list-disc pl-5 mb-3 space-y-1 text-sm">
+                          <li>Language of Page</li>
+                          <li>On Focus</li>
+                          <li>Error Identification</li>
+                          <li>Input Purpose</li>
+                          <li>Consistent Help</li>
+                          <li>Redundant Entry</li>
+                          <li>Accessible Authentication (Min & Enhanced)</li>
+                        </ul>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-sm font-semibold mb-1 text-blue-800 dark:text-blue-300">Robust</h4>
+                        <ul className="list-disc pl-5 mb-3 space-y-1 text-sm">
+                          <li>Name, Role, Value</li>
+                        </ul>
+                        
+                        <p className="text-sm mt-4 italic">
+                          For comprehensive accessibility compliance, we recommend combining 
+                          these automated checks with manual testing involving users with disabilities.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {!isToolInfoExpanded && (
+                  <Button 
+                    variant="link" 
+                    onClick={() => setIsToolInfoExpanded(true)}
+                    className="text-blue-600 dark:text-blue-400 p-0 h-auto font-normal text-sm hover:no-underline"
+                  >
+                    Show all 27 criteria
+                    <ChevronDown className="h-3.5 w-3.5 ml-1 inline" />
+                  </Button>
+                )}
+              </div>
+            </AlertDescription>
+          </div>
+        </div>
       </Alert>
     </section>
   );
