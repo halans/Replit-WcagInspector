@@ -169,7 +169,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                         <p className="text-blue-800 dark:text-blue-300 flex items-start">
                           <InfoIcon className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
                           <span>
-                            This analysis focuses on 9 key WCAG 2.2 success criteria. A full WCAG compliance check would include all 
+                            This analysis focuses on 26 key WCAG success criteria. A full WCAG compliance check would include all 
                             78 success criteria across levels A, AA, and AAA.
                           </span>
                         </p>
