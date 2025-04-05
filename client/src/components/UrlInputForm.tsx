@@ -14,11 +14,12 @@ import { useToast } from "@/hooks/use-toast";
 const formSchema = z.object({
   url: z.string().min(1, "URL is required").refine(
     (value) => {
-      // Basic URL validation pattern (accepts domain format)
+      // Basic URL validation pattern (accepts domain format with optional path)
       const urlPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+      // Allow any valid domain, with or without path segments
       return urlPattern.test(value) || value.startsWith('http');
     },
-    { message: "Please enter a valid URL (e.g., example.com)" }
+    { message: "Please enter a valid URL (e.g., example.com or example.com/page)" }
   )
 });
 
@@ -98,7 +99,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                       <Input
                         {...field}
                         id="url-input"
-                        placeholder="example.com"
+                        placeholder="example.com/page"
                         className="flex-1 rounded-none rounded-r-md"
                         disabled={isAnalyzing}
                         aria-describedby="url-hint"
@@ -108,7 +109,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                     </FormControl>
                   </div>
                   <FormDescription id="url-hint">
-                    Enter the domain without "https://" prefix.
+                    Enter the domain and path without "https://" prefix (e.g., example.com/page).
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
