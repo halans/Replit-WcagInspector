@@ -104,7 +104,13 @@ export default function IntroSection() {
           <InfoIcon className="h-5 w-5 mt-0.5" />
           <div className="flex-1 ml-3">
             <div className="flex justify-between items-center">
-              <AlertTitle className="text-blue-800 dark:text-blue-300 font-medium">About This Tool</AlertTitle>
+              <AlertTitle 
+                className="text-blue-800 dark:text-blue-300 font-medium"
+                tabIndex={0}
+                id="about-tool-title"
+              >
+                About This Tool
+              </AlertTitle>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -113,11 +119,13 @@ export default function IntroSection() {
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 -mr-2"
                 aria-expanded={isToolInfoExpanded}
                 aria-controls="tool-info-content"
+                tabIndex={0}
               >
                 {isToolInfoExpanded ? 
                   <ChevronUp className="h-5 w-5" /> : 
                   <ChevronDown className="h-5 w-5" />
                 }
+                <span className="sr-only">{isToolInfoExpanded ? "Collapse" : "Expand"} tool information</span>
               </Button>
             </div>
             
@@ -196,7 +204,11 @@ export default function IntroSection() {
                   <Button 
                     variant="link" 
                     onClick={() => setIsToolInfoExpanded(true)}
-                    className="text-blue-600 dark:text-blue-400 p-0 h-auto font-normal text-sm hover:no-underline"
+                    className="text-blue-600 dark:text-blue-400 p-0 h-auto font-normal text-sm hover:no-underline
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm"
+                    tabIndex={0}
+                    aria-controls="tool-info-content"
+                    aria-expanded="false"
                   >
                     Show all 27 criteria
                     <ChevronDown className="h-3.5 w-3.5 ml-1 inline" />

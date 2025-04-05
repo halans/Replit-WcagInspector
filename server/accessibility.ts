@@ -132,6 +132,25 @@ function normalizeUrl(url: string): string {
   }
 }
 
+// Helper function to determine WCAG principle based on criterion ID
+function getPrincipleFromCriterionId(criterionId: string): string {
+  // Extract the first digit from the criterionId (e.g., "1.1.1" → 1)
+  const firstDigit = parseInt(criterionId.charAt(0));
+  
+  switch (firstDigit) {
+    case 1:
+      return "Perceivable";
+    case 2:
+      return "Operable";
+    case 3:
+      return "Understandable";
+    case 4:
+      return "Robust";
+    default:
+      return "Unknown";
+  }
+}
+
 // Helper function to generate a summary
 function generateSummary(url: string, passedCount: number, totalCriteria: number, results: CriterionResult[]): string {
   const failedCriteria = results.filter(r => !r.passed).map(r => r.name).join(", ");
@@ -387,6 +406,7 @@ function analyzeKeyboard($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.1.1",
     name: "Keyboard",
     level: "A",
+    principle: "Operable",
     description: "All functionality is operable through a keyboard interface.",
     passed: !hasKeyboardIssues,
     findings: !hasKeyboardIssues
@@ -417,6 +437,7 @@ function analyzeTimingAdjustable($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.2.1",
     name: "Timing Adjustable",
     level: "A",
+    principle: "Operable",
     description: "For each time limit, users can turn it off, adjust it, or extend it.",
     passed: !hasTimingElements,
     findings: !hasTimingElements
@@ -446,6 +467,7 @@ function analyzeThreeFlashes($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.3.1",
     name: "Three Flashes or Below Threshold",
     level: "A",
+    principle: "Operable",
     description: "Web pages do not contain anything that flashes more than three times in any one second period.",
     passed: !hasFlashingElements,
     findings: !hasFlashingElements
@@ -473,6 +495,7 @@ function analyzeBypassBlocks($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.4.1",
     name: "Bypass Blocks",
     level: "A",
+    principle: "Operable",
     description: "A mechanism is available to bypass blocks of content that are repeated on multiple Web pages.",
     passed: passed,
     findings: passed
@@ -504,6 +527,7 @@ function analyzePageTitled($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.4.2",
     name: "Page Titled",
     level: "A",
+    principle: "Operable",
     description: "Web pages have titles that describe topic or purpose.",
     passed: hasTitle,
     findings: hasTitle
@@ -530,6 +554,7 @@ function analyzeFocusOrder($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.4.3",
     name: "Focus Order",
     level: "A",
+    principle: "Operable",
     description: "Focusable components receive focus in an order that preserves meaning and operability.",
     passed: !hasPositiveTabindex,
     findings: !hasPositiveTabindex
@@ -555,6 +580,7 @@ function analyzeLinkPurpose($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.4.4",
     name: "Link Purpose (In Context)",
     level: "A",
+    principle: "Operable",
     description: "The purpose of each link can be determined from the link text alone or from the link text together with its programmatically determined link context.",
     passed: !hasUnclearLinks,
     findings: !hasUnclearLinks
@@ -592,6 +618,7 @@ function analyzeFocusVisible2($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "2.4.7",
     name: "Focus Visible",
     level: "AA",
+    principle: "Operable",
     description: "Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible.",
     passed: !hasFocusOutlineRemoved,
     findings: !hasFocusOutlineRemoved
@@ -616,6 +643,7 @@ function analyzeLanguage($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "3.1.1",
     name: "Language of Page",
     level: "A",
+    principle: "Understandable",
     description: "The default human language of each Web page can be programmatically determined.",
     passed: hasLangAttribute,
     findings: hasLangAttribute
@@ -641,6 +669,7 @@ function analyzeOnFocus($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "3.2.1",
     name: "On Focus",
     level: "A",
+    principle: "Understandable",
     description: "When any user interface component receives focus, it does not initiate a change of context.",
     passed: !hasIssueElements,
     findings: !hasIssueElements
@@ -666,6 +695,7 @@ function analyzeErrorIdentification($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "3.3.1",
     name: "Error Identification",
     level: "A",
+    principle: "Understandable",
     description: "If an input error is automatically detected, the item that is in error is identified and the error is described to the user in text.",
     passed: forms.length === 0 || hasFormValidation,
     findings: forms.length === 0
@@ -705,6 +735,7 @@ function analyzeNameRoleValue($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "4.1.2",
     name: "Name, Role, Value",
     level: "A",
+    principle: "Robust",
     description: "For all user interface components, the name and role can be programmatically determined.",
     passed: customInteractiveElements.length === 0 || allHaveProperAttributes,
     findings: customInteractiveElements.length === 0
