@@ -6,10 +6,21 @@ import { AnalysisResponse, CriterionResult } from '@shared/schema';
  * Export analysis results to PDF with enhanced formatting
  */
 export function exportToPdf(data: AnalysisResponse): void {
-  const doc = new jsPDF();
+  // Create PDF with proper format detection and safe margins
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm'
+  });
+  
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
-  const margin = 20;
+  
+  // Detect if we're using A4 or Letter and adjust margins accordingly
+  // A4 is 210x297mm, Letter is 215.9x279.4mm
+  const isA4 = Math.abs(pageHeight - 297) < 1;
+  
+  // Use safe margins that work for both A4 and Letter
+  const margin = isA4 ? 20 : 15; // Slightly smaller margins for Letter
   const contentWidth = pageWidth - (margin * 2);
   
   // Helper function to draw section header with background
@@ -182,32 +193,35 @@ export function exportToPdf(data: AnalysisResponse): void {
   
   const scorePercentage = Math.round((data.passedCriteria / data.totalCriteria) * 100);
   
-  // Draw score circle
+  // Draw score circle - matching web app design
   const circleX = margin + 40;
-  const circleY = currentY + 20;
-  const circleRadius = 30;
+  const circleY = currentY + 25;
+  const circleRadius = 35;
   
-  // Draw circle background
-  doc.setFillColor(240, 240, 240);
+  // Draw large circle with light gray background (matching the screenshot)
+  doc.setFillColor(245, 245, 245); // Very light gray
   doc.circle(circleX, circleY, circleRadius, 'F');
   
-  // Draw score text
-  doc.setFontSize(24);
-  doc.setTextColor(59, 130, 246);
+  // Draw score text in blue - large and centered
+  doc.setFontSize(38); // Larger font for the percentage
+  doc.setTextColor(59, 130, 246); // Blue color
+  doc.setFont('helvetica', 'bold');
   
   // Center text in circle
-  const textWidth = doc.getStringUnitWidth(`${scorePercentage}%`) * 24 / doc.internal.scaleFactor;
-  doc.text(`${scorePercentage}%`, circleX - (textWidth / 2), circleY + 8);
+  const textWidth = doc.getStringUnitWidth(`${scorePercentage}%`) * 38 / doc.internal.scaleFactor;
+  doc.text(`${scorePercentage}%`, circleX - (textWidth / 2), circleY + 12);
   doc.setTextColor(0, 0, 0);
   
-  // Draw pass/fail details
-  doc.setFontSize(14);
+  // Draw pass/fail details - aligned with screenshot layout
+  doc.setFontSize(16);
   doc.setFont('helvetica', 'normal');
-  doc.text(`${data.passedCriteria} of ${data.totalCriteria} criteria passed`, margin + 80, currentY + 10);
+  doc.text(`${data.passedCriteria} of ${data.totalCriteria} criteria passed`, margin + 90, currentY + 15);
   
+  // Status with proper spacing from criteria text
   const statusText = scorePercentage >= 75 ? 'Good' : (scorePercentage >= 50 ? 'Needs Improvement' : 'Poor');
+  doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
-  doc.text(`Status: ${statusText}`, margin + 80, currentY + 25);
+  doc.text(`Status: ${statusText}`, margin + 90, currentY + 40);
   
   currentY += 60;
   
