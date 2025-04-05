@@ -134,8 +134,8 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                       <span>{showExamples ? "Hide Examples" : "Show Examples"}</span>
                     </button>
                   </FormLabel>
-                  <div className="mt-1 flex rounded-lg shadow-sm overflow-hidden border-2 border-blue-100 focus-within:border-blue-500 dark:border-blue-900 dark:focus-within:border-blue-700 transition-colors duration-200">
-                    <span className="inline-flex items-center px-3 border-r-0 bg-blue-100 text-blue-700 font-medium dark:bg-blue-900/70 dark:text-blue-300 text-sm select-none">
+                  <div className="mt-1 flex rounded-lg shadow-sm overflow-hidden border-2 border-blue-300 focus-within:border-blue-500 dark:border-blue-700 dark:focus-within:border-blue-500 transition-colors duration-200">
+                    <span className="inline-flex items-center px-3 border-r-0 bg-blue-100 text-blue-700 font-medium dark:bg-blue-800/70 dark:text-blue-300 text-sm select-none">
                       https://
                     </span>
                     <FormControl>
@@ -143,7 +143,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                         {...field}
                         id="url-input"
                         placeholder="example.com/path/to/page.html"
-                        className="flex-1 rounded-none rounded-r-lg border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 text-base"
+                        className="flex-1 rounded-none rounded-r-lg border-0 focus-visible:ring-0 focus-visible:ring-offset-0 py-6 text-base bg-white dark:bg-gray-800"
                         disabled={isAnalyzing}
                         aria-describedby="url-hint"
                         onChange={(e) => handleInputChange(e, field.onChange)}

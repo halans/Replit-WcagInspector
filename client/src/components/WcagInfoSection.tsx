@@ -22,7 +22,9 @@ export default function WcagInfoSection() {
         aria-expanded={isExpanded}
         aria-controls="wcag-info-content"
       >
-        <CardTitle id="wcag-info-header">About WCAG 2.2</CardTitle>
+        <div className="flex items-center">
+          <CardTitle id="wcag-info-header">About WCAG 2.2</CardTitle>
+        </div>
         <Button 
           variant="ghost" 
           size="sm"
