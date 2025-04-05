@@ -40,6 +40,27 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
     }
   });
 
+  // Handle input change to remove any https:// or http:// prefix
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, onChange: (...event: any[]) => void) => {
+    let value = e.target.value;
+    // Remove http:// or https:// if present
+    value = value.replace(/^https?:\/\//, '');
+    onChange(value);
+  };
+  
+  // Handle paste event to clean up URLs
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>, onChange: (...event: any[]) => void) => {
+    // Prevent the default paste behavior
+    e.preventDefault();
+    
+    // Get pasted content and clean it
+    const pastedText = e.clipboardData.getData('text');
+    const cleanedText = pastedText.replace(/^https?:\/\//, '');
+    
+    // Update the input with cleaned text
+    onChange(cleanedText);
+  };
+
   // Submit handler
   const onSubmit = async (data: UrlFormValues) => {
     try {
@@ -81,6 +102,8 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                         className="flex-1 rounded-none rounded-r-md"
                         disabled={isAnalyzing}
                         aria-describedby="url-hint"
+                        onChange={(e) => handleInputChange(e, field.onChange)}
+                        onPaste={(e) => handlePaste(e, field.onChange)}
                       />
                     </FormControl>
                   </div>
