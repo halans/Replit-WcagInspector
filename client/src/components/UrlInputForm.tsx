@@ -98,7 +98,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                       <Input
                         {...field}
                         id="url-input"
-                        placeholder="www.w3.org/WAI/demos/bad/before/home.html"
+                        placeholder="example.com/path/to/page.html"
                         className="flex-1 rounded-none rounded-r-md"
                         disabled={isAnalyzing}
                         aria-describedby="url-hint"
@@ -108,7 +108,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                     </FormControl>
                   </div>
                   <FormDescription id="url-hint">
-                    Enter the domain and full path without "https://" prefix (e.g., www.w3.org/WAI/demos/bad/before/home.html).
+                    Enter the domain and full path without "https://" prefix (e.g., example.com/path/to/page.html).
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
