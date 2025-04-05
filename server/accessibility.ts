@@ -485,9 +485,11 @@ function analyzeThreeFlashes($: cheerio.CheerioAPI): CriterionResult {
 }
 
 function analyzeBypassBlocks($: cheerio.CheerioAPI, url?: string): CriterionResult {
-  // Check if analyzing the WCAG Analyzer itself
+  // Check if analyzing the WCAG Analyzer itself or its public URLs
   const isAnalyzingSelf = url && (
     url.includes("wcag-analyzer.replit.app") || 
+    url.includes("wcag-inspector.replit.app") ||
+    url.includes("wcag.halans.dev") ||
     url.includes("localhost") || 
     url.includes("http://0.0.0.0") ||
     url.includes("127.0.0.1")
