@@ -73,6 +73,9 @@ export default function Header() {
 
   return (
     <header role="banner" aria-label="Site header" className="bg-gradient-to-r from-blue-600 to-indigo-700 shadow-md dark:from-blue-800 dark:to-indigo-900">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-white focus:text-blue-700 focus:z-50 focus:rounded-md">
+        Skip to main content
+      </a>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
