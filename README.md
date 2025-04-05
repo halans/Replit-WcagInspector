@@ -16,12 +16,13 @@ A comprehensive web accessibility analysis tool that evaluates websites against 
 
 ## Recent Updates
 
-- Improved keyboard navigation and focus management for better accessibility
-- Added dark mode support with system theme detection
-- Enhanced PDF export functionality with clean, readable formatting
-- Implemented SEO optimizations including meta tags, robots.txt, and sitemap
-- Added comprehensive user interface for filtering and exploring results
-- Fixed various accessibility issues to ensure the tool itself is accessible
+- **Mobile Responsiveness**: Enhanced UI for small screens with optimized filter tabs and improved layout
+- **Accessibility Improvements**: Better keyboard navigation, focus management, and skip links
+- **Dark Mode**: Added system theme detection and dark mode support
+- **Enhanced Exports**: Improved PDF and CSV export with clean, readable formatting
+- **UI Refinements**: Optimized filtering interface with clear visual indicators for WCAG principles
+- **Bug Fixes**: Resolved issues with text truncation and improved responsive design
+- **Performance**: Optimized application loading and analysis speed
 
 ## Tech Stack
 
