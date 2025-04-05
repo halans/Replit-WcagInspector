@@ -137,7 +137,7 @@ function generateSummary(url: string, passedCount: number, totalCriteria: number
   const failedCriteria = results.filter(r => !r.passed).map(r => r.name).join(", ");
   
   if (passedCount === totalCriteria) {
-    return `This website appears to meet all ${totalCriteria} WCAG success criteria we checked. Great job!`;
+    return `This website appears to meet all 27 WCAG success criteria we checked. Great job!`;
   } else if (passedCount >= totalCriteria * 0.7) {
     return `This website provides good accessibility in most areas but needs improvements in ${failedCriteria}.`;
   } else if (passedCount >= totalCriteria * 0.4) {
@@ -1173,7 +1173,7 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     if (nameRoleValueResult.passed) passedCount++;
     
     // Calculate overall score (percentage of passed criteria)
-    const totalCriteria = 26; // Total number of criteria we've implemented
+    const totalCriteria = 27; // Total number of criteria we've implemented
     const overallScore = Math.min(100, Math.round((passedCount / totalCriteria) * 100)); // Cap at 100%
     
     // Generate tags for summary (most significant passed/failed items)
