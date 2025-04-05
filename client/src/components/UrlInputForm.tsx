@@ -186,7 +186,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                 type="submit" 
                 disabled={isAnalyzing}
                 aria-label="Analyze website accessibility"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-6 px-6 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-6 px-6 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 {isAnalyzing ? (
                   <>

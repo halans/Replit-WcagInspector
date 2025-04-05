@@ -188,17 +188,35 @@ function generateSummary(url: string, passedCount: number, totalCriteria: number
 function analyzeFocusVisible($: cheerio.CheerioAPI): CriterionResult {
   const interactiveElements = $('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
   const elementsWithoutFocus: string[] = [];
-  let hasFocusStyles = true;
+  let hasFocusStyles = false; // Start with assumption that styles are missing
   
-  interactiveElements.each((_, el) => {
-    const element = $(el);
-    const hasCssOutline = true; // Simplified check for focus styles
-    
-    if (!hasCssOutline) {
-      elementsWithoutFocus.push(el.tagName + (element.attr('class') ? '.' + element.attr('class') : ''));
-      hasFocusStyles = false;
+  // Look for CSS rules that might set focus styles
+  const styleElements = $('style');
+  const linkElements = $('link[rel="stylesheet"]');
+  
+  // Check if there are any style elements with focus styles
+  styleElements.each((_, style) => {
+    const styleContent = $(style).text();
+    if (
+      styleContent.includes(':focus') || 
+      styleContent.includes(':focus-visible') || 
+      styleContent.includes('outline') ||
+      styleContent.includes('ring')
+    ) {
+      hasFocusStyles = true;
     }
   });
+  
+  // Check for button elements with custom styles that might override focus
+  const customButtons = $('button[class*="gradient"], a[class*="gradient"]');
+  if (customButtons.length > 0) {
+    hasFocusStyles = false; // Custom gradient buttons often override focus styles
+    customButtons.each((_, el) => {
+      const element = $(el);
+      const className = element.attr('class') || '';
+      elementsWithoutFocus.push(el.tagName + (className ? '.' + className.replace(/\s+/g, '.') : ''));
+    });
+  }
   
   return {
     criterionId: "2.4.12",
@@ -208,22 +226,19 @@ function analyzeFocusVisible($: cheerio.CheerioAPI): CriterionResult {
     passed: hasFocusStyles,
     findings: hasFocusStyles 
       ? "All interactive elements show a visible focus indicator when using keyboard navigation."
-      : "Some interactive elements don't have a visible focus indicator for keyboard users.",
-    elements: interactiveElements.length > 0 
-      ? [
-          { 
-            element: 'button.nav-toggle', 
-            isPassed: true,
-            issue: hasFocusStyles ? undefined : "Missing focus styles" 
-          },
-          { 
-            element: 'a.menu-link', 
-            isPassed: true,
-            issue: hasFocusStyles ? undefined : "Missing focus styles" 
-          }
-        ]
-      : [{ element: "No interactive elements found", isPassed: true }],
-    howToFix: hasFocusStyles ? undefined : "Add :focus styles to all interactive elements. Consider using outline: 2px solid #4f46e5; outline-offset: 2px;"
+      : "Some interactive elements don't have a visible focus indicator for keyboard users. Custom styled buttons might be overriding focus styles.",
+    elements: elementsWithoutFocus.length > 0
+      ? elementsWithoutFocus.map(el => ({
+          element: el,
+          isPassed: false,
+          issue: "May have missing or overridden focus styles"
+        }))
+      : interactiveElements.length > 0 
+        ? [{ element: 'Interactive elements', isPassed: true }]
+        : [{ element: "No interactive elements found", isPassed: true }],
+    howToFix: !hasFocusStyles 
+      ? "Add explicit :focus-visible styles to all interactive elements, especially those with custom styling. Use outline: 2px solid #4f46e5; outline-offset: 2px; or similar to ensure focus visibility. Avoid overriding built-in focus styles."
+      : undefined
   };
 }
 

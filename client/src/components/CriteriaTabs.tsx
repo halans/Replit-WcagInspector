@@ -43,7 +43,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
           <TabsList className="grid grid-cols-3 w-full mb-6 bg-blue-50 dark:bg-gray-900 p-1.5 rounded-lg border border-blue-100 dark:border-gray-700">
             <TabsTrigger 
               value="all" 
-              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-blue-600 dark:data-[state=active]:text-blue-400 data-[state=active]:shadow-sm rounded-md px-4 py-2"
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-blue-600 dark:data-[state=active]:text-blue-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               <div className="flex items-center">
                 <Info className="mr-1.5 h-4 w-4" />
@@ -55,7 +55,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
             
             <TabsTrigger 
               value="passed" 
-              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-green-600 dark:data-[state=active]:text-green-400 data-[state=active]:shadow-sm rounded-md px-4 py-2"
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-green-600 dark:data-[state=active]:text-green-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               <div className="flex items-center">
                 <CheckCircle2 className="mr-1.5 h-4 w-4 text-green-600 dark:text-green-400" />
@@ -67,7 +67,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
             
             <TabsTrigger 
               value="failed" 
-              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-red-600 dark:data-[state=active]:text-red-400 data-[state=active]:shadow-sm rounded-md px-4 py-2"
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-red-600 dark:data-[state=active]:text-red-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               <div className="flex items-center">
                 <AlertCircle className="mr-1.5 h-4 w-4 text-red-600 dark:text-red-400" />
