@@ -3,13 +3,14 @@ import { format } from "date-fns";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, GaugeCircle, Tag, Globe, Calendar, CheckCircleIcon, InfoIcon } from "lucide-react";
+import { AlertCircle, GaugeCircle, Tag, Globe, Calendar, CheckCircle, Info, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { AnalysisResponse } from "@shared/schema";
 import ScoreCircle from "./ScoreCircle";
 import CriterionCard from "./CriterionCard";
 import CriteriaTabs from "./CriteriaTabs";
+import ExportButtons from "./ExportButtons";
 
 interface ResultsSectionProps {
   results: AnalysisResponse;
@@ -108,9 +109,12 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                   </div>
                 </div>
               </div>
-              <Badge className="px-3 py-1 text-sm bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">
-                WCAG 2.2 Assessment
-              </Badge>
+              <div className="flex items-center gap-2">
+                <Badge className="px-3 py-1 text-sm bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">
+                  WCAG 2.2 Assessment
+                </Badge>
+                <ExportButtons results={results} />
+              </div>
             </div>
           </div>
           
@@ -134,7 +138,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                   <div className="flex-1 space-y-6">
                     <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 border border-blue-100 dark:border-blue-900/30">
                       <div className="flex items-center gap-3 mb-3">
-                        <CheckCircleIcon className={`h-6 w-6 ${
+                        <CheckCircle className={`h-6 w-6 ${
                           results.passedCriteria > results.totalCriteria/2 
                             ? "text-green-600 dark:text-green-400" 
                             : "text-amber-500 dark:text-amber-400"
@@ -167,7 +171,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                       </p>
                       <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md border border-blue-100 dark:border-blue-900/30 mb-4 text-sm">
                         <p className="text-blue-800 dark:text-blue-300 flex items-start">
-                          <InfoIcon className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                          <Info className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
                           <span>
                             This analysis focuses on 27 key WCAG success criteria covering the most important 
                             accessibility requirements across levels A, AA, and AAA.
