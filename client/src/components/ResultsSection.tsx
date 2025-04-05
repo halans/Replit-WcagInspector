@@ -3,12 +3,13 @@ import { format } from "date-fns";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, GaugeCircle, Tag, Globe, Calendar, CheckCircleIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { AnalysisResponse } from "@shared/schema";
 import ScoreCircle from "./ScoreCircle";
 import CriterionCard from "./CriterionCard";
+import CriteriaTabs from "./CriteriaTabs";
 
 interface ResultsSectionProps {
   results: AnalysisResponse;
@@ -23,17 +24,18 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
 
   if (isLoading) {
     return (
-      <Card className="mb-8">
+      <Card className="mb-8 border-0 shadow-lg overflow-hidden">
+        <div className="h-2 w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 animate-pulse"></div>
         <CardContent className="pt-6">
-          <div className="flex items-center justify-center p-8">
-            <div className="animate-spin mr-2">
+          <div className="flex flex-col items-center justify-center p-10">
+            <div className="animate-spin mb-4">
               <span className="sr-only">Loading...</span>
-              <svg className="h-8 w-8 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
+              <GaugeCircle className="h-12 w-12 text-blue-600 dark:text-blue-400" />
             </div>
-            <span>Analyzing website...</span>
+            <h3 className="text-lg font-medium mb-2">Analyzing Website...</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-md">
+              We're checking the website against WCAG 2.2 criteria. This may take a few moments.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -42,11 +44,27 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
 
   if (isError) {
     return (
-      <Alert variant="destructive" className="mb-8">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
+      <Card className="mb-8 border-0 shadow-lg overflow-hidden">
+        <div className="h-2 w-full bg-red-500"></div>
+        <CardContent className="pt-6">
+          <div className="flex flex-col items-center justify-center p-8">
+            <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full mb-4">
+              <AlertCircle className="h-8 w-8 text-red-600 dark:text-red-400" />
+            </div>
+            <h3 className="text-lg font-medium text-red-600 dark:text-red-400 mb-2">Error Analyzing Website</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm text-center max-w-md">
+              {error}
+            </p>
+            <Alert variant="destructive" className="mt-6 w-full max-w-md">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Troubleshooting</AlertTitle>
+              <AlertDescription>
+                Check that the URL is correct and the website is accessible. Some websites may block automated access.
+              </AlertDescription>
+            </Alert>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -69,86 +87,110 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
   };
 
   return (
-    <section id="results-section" className="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6 mb-8" aria-labelledby="results-header">
-      <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
-        <h2 id="results-header" className="text-lg font-medium text-gray-900 dark:text-white">
-          {results.url} - WCAG 2.2 Results
-        </h2>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Analysis completed <time dateTime={results.timestamp}>{analysisTime}</time>
-        </p>
-      </div>
-      
-      {/* Overall score card */}
-      <div className="mb-6">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-3">Overall Accessibility Score</h3>
-        <div className="flex flex-col md:flex-row md:items-center gap-6">
-          <div className="w-full md:w-64 h-64 relative flex items-center justify-center">
-            <ScoreCircle 
-              score={results.overallScore} 
-              label="Overall Score" 
-            />
+    <section id="results-section" className="mb-8" aria-labelledby="results-header">
+      <Card className="overflow-hidden border-0 shadow-lg mb-8">
+        <div className="h-2 w-full bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500"></div>
+        <CardContent className="p-0">
+          {/* Header with website info */}
+          <div className="bg-gray-50 dark:bg-gray-900/50 p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-sm">
+                  <Globe className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <h2 id="results-header" className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+                    {results.url}
+                  </h2>
+                  <div className="flex items-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    <Calendar className="h-4 w-4" />
+                    <time dateTime={results.timestamp}>{analysisTime}</time>
+                  </div>
+                </div>
+              </div>
+              <Badge className="px-3 py-1 text-sm bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200">
+                WCAG 2.2 Assessment
+              </Badge>
+            </div>
           </div>
           
-          <div className="flex-1">
-            <div className="space-y-4">
-              <div>
-                <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Passed Criteria: <span className="font-bold text-green-600 dark:text-green-400">{results.passedCriteria}/{results.totalCriteria}</span>
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  This website passes {results.passedCriteria} out of {results.totalCriteria} WCAG 2.2 success criteria
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-medium text-gray-700 dark:text-gray-300">Summary</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {results.summary}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {results.tags.map((tag, index) => (
-                    <Badge 
-                      key={index}
-                      variant={tag.isPassed ? "default" : "destructive"}
-                      className={`inline-flex items-center ${tag.isPassed ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'}`}
-                    >
-                      {tag.name}
-                    </Badge>
-                  ))}
+          {/* Overall score card */}
+          <div className="p-6 md:p-8">
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+                <GaugeCircle className="mr-2 h-5 w-5 text-blue-600 dark:text-blue-400" />
+                Overall Accessibility Score
+              </h3>
+              
+              <div className="bg-white dark:bg-gray-800/50 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+                <div className="flex flex-col lg:flex-row items-center gap-8">
+                  <div className="w-full md:w-72 h-72 relative flex items-center justify-center">
+                    <ScoreCircle 
+                      score={results.overallScore} 
+                      label="Overall Score" 
+                    />
+                  </div>
+                  
+                  <div className="flex-1 space-y-6">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 border border-blue-100 dark:border-blue-900/30">
+                      <div className="flex items-center gap-3 mb-3">
+                        <CheckCircleIcon className={`h-6 w-6 ${
+                          results.passedCriteria > results.totalCriteria/2 
+                            ? "text-green-600 dark:text-green-400" 
+                            : "text-amber-500 dark:text-amber-400"
+                        }`} />
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {results.passedCriteria} of {results.totalCriteria} criteria passed
+                        </h4>
+                      </div>
+                      <div className="h-3 relative rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
+                        <div 
+                          className={`h-full ${
+                            results.overallScore >= 80 
+                              ? "bg-green-500" 
+                              : results.overallScore >= 60 
+                                ? "bg-amber-500" 
+                                : "bg-red-500"
+                          }`}
+                          style={{ width: `${(results.passedCriteria / results.totalCriteria) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-3 flex items-center">
+                        <Tag className="mr-2 h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        Analysis Summary
+                      </h4>
+                      <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                        {results.summary}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {results.tags.map((tag, index) => (
+                          <Badge 
+                            key={index}
+                            variant={tag.isPassed ? "default" : "destructive"}
+                            className={`${
+                              tag.isPassed 
+                                ? "bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900/50 dark:text-green-200" 
+                                : "bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/50 dark:text-red-200"
+                            }`}
+                          >
+                            {tag.name}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
       
-      {/* Criteria tabs */}
-      <Separator className="my-4" />
-      
-      <div className="pt-4">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">WCAG 2.2 Success Criteria</h3>
-        
-        <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="mb-4">
-            <TabsTrigger value="all">All Criteria</TabsTrigger>
-            <TabsTrigger value="passed">
-              Passed ({results.results.filter(r => r.passed).length})
-            </TabsTrigger>
-            <TabsTrigger value="failed">
-              Failed ({results.results.filter(r => !r.passed).length})
-            </TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value={activeTab} className="space-y-6">
-            {getFilteredResults().map((criterion) => (
-              <CriterionCard 
-                key={criterion.criterionId} 
-                criterion={criterion} 
-              />
-            ))}
-          </TabsContent>
-        </Tabs>
-      </div>
+      {/* Criteria details section */}
+      <CriteriaTabs criteria={results.results} />
     </section>
   );
 }

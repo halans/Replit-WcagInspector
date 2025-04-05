@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { AccessibilityIcon, Moon, Sun } from "lucide-react";
+import { AccessibilityIcon, Moon, Sun, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default function Header() {
   const [theme, setTheme] = useState<"light" | "dark">(
@@ -50,22 +51,32 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-white shadow-sm dark:bg-gray-900 dark:text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <header className="bg-gradient-to-r from-blue-600 to-indigo-700 shadow-md dark:from-blue-800 dark:to-indigo-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <AccessibilityIcon className="text-primary-600 dark:text-primary-400 mr-2" aria-hidden="true" />
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-white">WCAG 2.2 Accessibility Analyzer</h1>
+            <div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md mr-3">
+              <AccessibilityIcon className="text-blue-600 dark:text-blue-400 h-6 w-6" aria-hidden="true" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-white">WCAG 2.2 Accessibility Analyzer</h1>
+              <div className="flex items-center mt-1">
+                <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 mr-2">
+                  <CheckCircle2 className="h-3 w-3 mr-1" /> WCAG 2.2
+                </Badge>
+                <span className="text-xs text-white/80">Analyze your website for accessibility issues</span>
+              </div>
+            </div>
           </div>
           
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="icon"
             type="button" 
             id="theme-toggle" 
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"} 
-            className="p-2 rounded-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white"
           >
             {theme === "light" ? (
               <Moon className="h-5 w-5" aria-hidden="true" />
