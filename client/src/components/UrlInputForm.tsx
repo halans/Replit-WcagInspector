@@ -70,7 +70,7 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                 <FormItem>
                   <FormLabel htmlFor="url-input">Website URL</FormLabel>
                   <div className="mt-1 flex rounded-md shadow-sm">
-                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-input bg-muted text-muted-foreground text-sm">
+                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-input bg-muted text-muted-foreground dark:text-gray-300 text-sm">
                       https://
                     </span>
                     <FormControl>

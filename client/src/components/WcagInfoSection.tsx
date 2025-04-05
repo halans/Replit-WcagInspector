@@ -8,7 +8,7 @@ export default function WcagInfoSection() {
       </CardHeader>
       
       <CardContent>
-        <div className="prose max-w-none text-gray-700 dark:text-gray-300 dark:prose-headings:text-white dark:prose-strong:text-gray-200">
+        <div className="prose max-w-none text-gray-700 dark:text-gray-200 dark:prose-headings:text-white dark:prose-strong:text-gray-100">
           <p>
             The Web Content Accessibility Guidelines (WCAG) 2.2 provide recommendations for making web content more accessible
             to people with disabilities including blindness, low vision, deafness, hearing loss, learning disabilities,
