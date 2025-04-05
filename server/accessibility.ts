@@ -5,12 +5,6 @@ import { AnalysisResponse, CriterionResult } from "@shared/schema";
 // WCAG 2.2 criteria definitions (simplified for implementation)
 const wcagCriteria = [
   {
-    id: "1.3.5", 
-    name: "Input Purpose", 
-    level: "AA",
-    description: "The purpose of each input field collecting information about the user can be programmatically determined."
-  },
-  {
     id: "2.4.11", 
     name: "Focus Not Obscured (Minimum)", 
     level: "AA",
@@ -96,10 +90,10 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     const results: CriterionResult[] = [];
     let passedCount = 0;
     
-    // Check criterion: 1.3.5 Input Purpose
-    const inputPurposeResult = analyzeInputPurpose($);
-    results.push(inputPurposeResult);
-    if (inputPurposeResult.passed) passedCount++;
+    // Check criterion: 2.4.13 Focus Appearance
+    const focusAppearanceResult = analyzeInputPurpose($);
+    results.push(focusAppearanceResult);
+    if (focusAppearanceResult.passed) passedCount++;
     
     // Check criterion: 2.4.11 Focus Not Obscured (Minimum)
     const focusNotObscuredMinResult = analyzeFocusAppearance($);
@@ -148,7 +142,7 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     // Generate tags for summary (most significant passed/failed items)
     const tags = [
       { name: "Color Contrast", isPassed: true }, // Simplified assumption
-      { name: "Input Purpose", isPassed: inputPurposeResult.passed },
+      { name: "Focus Appearance", isPassed: focusAppearanceResult.passed },
       { name: "Target Size", isPassed: targetSizeResult.passed },
       { name: "Authentication", isPassed: accessibleAuthMinResult.passed }
     ];
@@ -257,10 +251,10 @@ function analyzeInputPurpose($: cheerio.CheerioAPI): CriterionResult {
   });
   
   return {
-    criterionId: "1.3.5",
-    name: "Input Purpose",
-    level: "AA",
-    description: "The purpose of each input field collecting information about the user can be programmatically determined.",
+    criterionId: "2.4.13",
+    name: "Focus Appearance",
+    level: "AAA",
+    description: "When a user interface component receives keyboard focus, the focus indication meets enhanced contrast and size requirements.",
     passed: allFieldsHaveAutocomplete,
     findings: allFieldsHaveAutocomplete 
       ? "All input fields have proper autocomplete attributes to identify input purpose."

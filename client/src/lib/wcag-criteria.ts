@@ -1,12 +1,6 @@
 // WCAG 2.2 criteria definitions
 export const wcagCriteria = [
   {
-    id: "1.3.5", 
-    name: "Input Purpose", 
-    level: "AA",
-    description: "The purpose of each input field collecting information about the user can be programmatically determined."
-  },
-  {
     id: "2.4.11", 
     name: "Focus Not Obscured (Minimum)", 
     level: "AA",
@@ -17,6 +11,12 @@ export const wcagCriteria = [
     name: "Focus Not Obscured (Enhanced)", 
     level: "AAA",
     description: "When a user interface component receives keyboard focus, no part of the component is hidden by author-created content."
+  },
+  {
+    id: "2.4.13", 
+    name: "Focus Appearance", 
+    level: "AAA",
+    description: "When a user interface component receives keyboard focus, the focus indication meets enhanced contrast and size requirements."
   },
   {
     id: "2.5.7", 
