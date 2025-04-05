@@ -4,16 +4,40 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export default function Header() {
-  const [theme, setTheme] = useState<"light" | "dark">(
-    document.documentElement.classList.contains("dark") ? "dark" : "light"
-  );
+  // Initialize theme based on localStorage or system preference
+  const getInitialTheme = (): "light" | "dark" => {
+    const savedTheme = localStorage.getItem("wcag-analyzer-theme");
+    if (savedTheme === "light" || savedTheme === "dark") {
+      return savedTheme;
+    }
+    
+    // Check system preference
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    
+    return "light";
+  };
+
+  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme());
+  
+  // Apply theme on initial render
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   // Toggle theme function
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
+    applyTheme(newTheme);
     
-    // Update classList
+    // Save preference to localStorage
+    localStorage.setItem("wcag-analyzer-theme", newTheme);
+  };
+  
+  // Apply theme function
+  const applyTheme = (newTheme: "light" | "dark") => {
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
       document.documentElement.classList.remove("light");
@@ -21,9 +45,6 @@ export default function Header() {
       document.documentElement.classList.add("light");
       document.documentElement.classList.remove("dark");
     }
-    
-    // Save preference to localStorage
-    localStorage.setItem("wcag-analyzer-theme", newTheme);
   };
 
   // Listen for system preference changes
@@ -73,16 +94,26 @@ export default function Header() {
             variant="outline" 
             size="icon"
             type="button" 
-            id="theme-toggle" 
+            id="theme-toggle"
+            tabIndex={0}
             onClick={toggleTheme}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleTheme();
+              }
+            }}
+            role="switch"
+            aria-checked={theme === "dark"}
             aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"} 
-            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
           >
             {theme === "light" ? (
               <Moon className="h-5 w-5" aria-hidden="true" />
             ) : (
               <Sun className="h-5 w-5" aria-hidden="true" />
             )}
+            <span className="sr-only">{theme === "light" ? "Dark mode" : "Light mode"}</span>
           </Button>
         </div>
       </div>

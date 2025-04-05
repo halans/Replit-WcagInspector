@@ -15,12 +15,25 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
   
   const toggleExpanded = () => setIsExpanded(!isExpanded);
   
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleExpanded();
+    }
+  };
+  
   return (
-    <Card className={`overflow-hidden border-l-4 transition-all duration-200 ${
-      criterion.passed 
-        ? "border-l-green-500 hover:shadow-md hover:shadow-green-100 dark:hover:shadow-none" 
-        : "border-l-red-500 hover:shadow-md hover:shadow-red-100 dark:hover:shadow-none"
-    }`}>
+    <Card 
+      tabIndex={0}
+      role="button"
+      aria-expanded={isExpanded}
+      onKeyDown={handleKeyDown}
+      onClick={toggleExpanded}
+      className={`overflow-hidden border-l-4 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-4 ${
+        criterion.passed 
+          ? "border-l-green-500 hover:shadow-md hover:shadow-green-100 dark:hover:shadow-none" 
+          : "border-l-red-500 hover:shadow-md hover:shadow-red-100 dark:hover:shadow-none"
+      }`}>
       <CardHeader className={`p-5 flex flex-row items-center justify-between ${
         isExpanded 
           ? "bg-gray-50 dark:bg-gray-900/50" 
@@ -86,13 +99,14 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
           variant="ghost" 
           size="sm"
           onClick={toggleExpanded}
+          onKeyDown={handleKeyDown}
           aria-expanded={isExpanded}
           aria-label={`${isExpanded ? "Hide" : "Show"} details for ${criterion.name} criterion`}
           className={`rounded-full p-2 ${
             isExpanded
               ? "bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
               : "text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-500 dark:hover:text-gray-300 dark:hover:bg-gray-700/50"
-          }`}
+          } focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500`}
         >
           {isExpanded ? (
             <ChevronUp className="h-5 w-5" aria-hidden="true" />
@@ -153,11 +167,23 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
                 <span className="ml-2 h-px flex-grow bg-blue-100 dark:bg-blue-900/50"></span>
               </h5>
               <div className="mt-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                   {criterion.elements.map((item, index) => (
-                    <li key={index} className={`py-3 px-4 ${
-                      index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : "bg-white dark:bg-gray-800"
-                    }`}>
+                    <li 
+                      key={index} 
+                      tabIndex={0}
+                      role="listitem"
+                      className={`py-3 px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 rounded ${
+                        index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : "bg-white dark:bg-gray-800"
+                      }`}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          // Optional: Add an action when pressing Enter on a list item
+                          // For now, it's just focusable
+                        }
+                      }}
+                    >
                       <div className="flex items-start gap-3">
                         <div className="pt-0.5">
                           {item.isPassed ? (
