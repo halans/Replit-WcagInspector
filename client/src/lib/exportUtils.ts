@@ -133,27 +133,27 @@ export function exportToPdf(data: AnalysisResponse): void {
   doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
   
   // Center dot
-  doc.circle(iconX, iconY + 8, 3, 'F');
+  doc.circle(iconX, iconY + 5, 4, 'F');
   
   // Inner curved lines
   doc.setLineWidth(2.5);
   doc.setDrawColor(59, 130, 246);
   
   // First arc (smallest)
-  doc.ellipse(iconX, iconY + 1, 8, 8, 'S');
+  doc.ellipse(iconX, iconY, 9, 9, 'S');
   
   // Second arc (medium)
-  doc.ellipse(iconX, iconY - 1, 13, 13, 'S');
+  doc.ellipse(iconX, iconY - 5, 15, 15, 'S');
   
   // Third arc (largest)
-  doc.ellipse(iconX, iconY - 3, 18, 18, 'S');
+  doc.ellipse(iconX, iconY - 8, 20, 20, 'S');
   
   // Right side diagonal line
-  doc.setLineWidth(3);
-  doc.line(iconX + 10, iconY + 10, iconX + 18, iconY + 18);
+  doc.setLineWidth(4);
+  doc.line(iconX + 12, iconY + 12, iconX + 20, iconY + 20);
   
   // Left side diagonal line
-  doc.line(iconX - 10, iconY + 10, iconX - 18, iconY + 18);
+  doc.line(iconX - 12, iconY + 12, iconX - 20, iconY + 20);
   
   // Set default text
   doc.setFont('helvetica', 'normal');
@@ -295,15 +295,15 @@ export function exportToPdf(data: AnalysisResponse): void {
   
   // Accessibility icon
   doc.setFillColor(59, 130, 246);
-  doc.circle(headerIconX, headerIconY + 2, 1, 'F'); // Center dot
+  doc.circle(headerIconX, headerIconY + 1.5, 1.2, 'F'); // Center dot
   
   doc.setLineWidth(0.8);
   doc.setDrawColor(59, 130, 246);
   
   // Curved lines
-  doc.ellipse(headerIconX, headerIconY, 2.5, 2.5, 'S'); // Small arc
+  doc.ellipse(headerIconX, headerIconY + 0.5, 2.5, 2.5, 'S'); // Small arc
   doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
-  doc.ellipse(headerIconX, headerIconY - 1, 5.5, 5.5, 'S'); // Large arc
+  doc.ellipse(headerIconX, headerIconY - 1.5, 5.5, 5.5, 'S'); // Large arc
   
   // Diagonal lines
   doc.setLineWidth(1);
@@ -341,15 +341,15 @@ export function exportToPdf(data: AnalysisResponse): void {
       
       // Accessibility icon
       doc.setFillColor(59, 130, 246);
-      doc.circle(headerIconX, headerIconY + 2, 1, 'F'); // Center dot
+      doc.circle(headerIconX, headerIconY + 1.5, 1.2, 'F'); // Center dot
       
       doc.setLineWidth(0.8);
       doc.setDrawColor(59, 130, 246);
       
       // Curved lines
-      doc.ellipse(headerIconX, headerIconY, 2.5, 2.5, 'S'); // Small arc
+      doc.ellipse(headerIconX, headerIconY + 0.5, 2.5, 2.5, 'S'); // Small arc
       doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
-      doc.ellipse(headerIconX, headerIconY - 1, 5.5, 5.5, 'S'); // Large arc
+      doc.ellipse(headerIconX, headerIconY - 1.5, 5.5, 5.5, 'S'); // Large arc
       
       // Diagonal lines
       doc.setLineWidth(1);
@@ -402,15 +402,15 @@ export function exportToPdf(data: AnalysisResponse): void {
         
         // Accessibility icon
         doc.setFillColor(59, 130, 246);
-        doc.circle(headerIconX, headerIconY + 2, 1, 'F'); // Center dot
+        doc.circle(headerIconX, headerIconY + 1.5, 1.2, 'F'); // Center dot
         
         doc.setLineWidth(0.8);
         doc.setDrawColor(59, 130, 246);
         
         // Curved lines
-        doc.ellipse(headerIconX, headerIconY, 2.5, 2.5, 'S'); // Small arc
+        doc.ellipse(headerIconX, headerIconY + 0.5, 2.5, 2.5, 'S'); // Small arc
         doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
-        doc.ellipse(headerIconX, headerIconY - 1, 5.5, 5.5, 'S'); // Large arc
+        doc.ellipse(headerIconX, headerIconY - 1.5, 5.5, 5.5, 'S'); // Large arc
         
         // Diagonal lines
         doc.setLineWidth(1);

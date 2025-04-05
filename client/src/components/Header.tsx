@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Moon, Sun, CheckCircle2 } from "lucide-react";
+import { AccessibilityIcon, Moon, Sun, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -76,28 +76,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md mr-3 flex items-center justify-center">
-              <svg 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className="text-blue-600 dark:text-blue-400"
-                aria-hidden="true"
-              >
-                {/* White circle background is not needed */}
-                {/* Center dot */}
-                <circle cx="12" cy="14" r="1.5" fill="currentColor" />
-                
-                {/* Curved lines */}
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                <circle cx="12" cy="11" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                <circle cx="12" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                
-                {/* Diagonal lines */}
-                <line x1="15" y1="15" x2="18" y2="18" stroke="currentColor" strokeWidth="1.5" />
-                <line x1="9" y1="15" x2="6" y2="18" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+            <div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md mr-3">
+              <AccessibilityIcon className="text-blue-600 dark:text-blue-400 h-6 w-6" aria-hidden="true" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">WCAG 2.2 Accessibility Analyzer</h1>
