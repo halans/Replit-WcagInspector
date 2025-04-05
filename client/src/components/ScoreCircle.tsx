@@ -145,19 +145,7 @@ export default function ScoreCircle({ score, label }: ScoreCircleProps) {
           {scoreRating}
         </text>
         
-        {/* Notes on criteria coverage - new addition */}
-        <text 
-          x="50" 
-          y="72" 
-          fontSize="7" 
-          textAnchor="middle" 
-          fill="hsl(215, 14%, 45%)"
-          fontWeight="normal"
-          aria-hidden="true"
-          className="dark:fill-gray-500"
-        >
-          Based on 9 WCAG 2.2 criteria
-        </text>
+        {/* Removed criteria text to avoid overlapping with screen reader text */}
       </svg>
       
       {/* Screen reader text */}
