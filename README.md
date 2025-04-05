@@ -40,3 +40,82 @@ The Web Content Accessibility Guidelines (WCAG) are organized under four main pr
 ## Disclaimer
 
 This tool provides automated accessibility checking but cannot catch all possible accessibility issues. It is designed to help identify common problems, but manual testing with real users and specialized accessibility tools is still recommended for comprehensive accessibility evaluation.
+
+## Installation and Setup
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn package manager
+
+### Local Development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/wcag-accessibility-analyzer.git
+   cd wcag-accessibility-analyzer
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open your browser and navigate to http://localhost:5000
+
+## Deployment
+
+### Deploying on Replit
+
+1. Fork this project on Replit
+2. The application will automatically use Replit's built-in hosting
+3. Click the 'Run' button to start the server
+4. Your app will be available at your-repl-name.your-username.repl.co
+
+### Deploying on Other Platforms
+
+1. Fork this repository on GitHub
+2. Connect your GitHub account to your preferred hosting platform (Vercel, Netlify, etc.)
+3. Import the repository and configure build settings appropriate for your platform
+4. Deploy and your app will be live
+
+## Forking and Contributing
+
+### How to Fork
+
+1. Click the 'Fork' button at the top right of the repository page
+2. Clone your forked repository to your local machine
+3. Make your changes and improvements
+4. Push to your fork and submit a pull request
+
+### Contributing Guidelines
+
+1. Create an issue describing the feature or bug fix you'd like to implement
+2. Fork the repository and create a branch for your feature
+3. Make your changes, following the code style of the project
+4. Add or update tests as necessary
+5. Submit a pull request with a comprehensive description of changes
+
+## Customization
+
+### Adding New WCAG Criteria
+
+To add new criteria to the analyzer, edit the following files:
+
+1. server/accessibility.ts - Add a new analysis function and update the wcagCriteria array
+2. shared/schema.ts - Update schemas if necessary
+3. client/src/lib/wcag-criteria.ts - Add the new criteria to the frontend list
+
+### Changing the UI Theme
+
+1. Edit theme.json to modify the color scheme
+2. Update tailwind.config.ts for custom tailwind settings
