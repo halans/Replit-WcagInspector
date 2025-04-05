@@ -9,7 +9,7 @@ export default function WcagInfoSection() {
   return (
     <Card>
       <CardHeader 
-        className="pb-2 flex flex-row justify-between items-center cursor-pointer" 
+        className="px-6 py-4 flex flex-row justify-between items-center cursor-pointer" 
         onClick={() => setIsExpanded(!isExpanded)}
         tabIndex={0}
         role="button"
@@ -22,9 +22,7 @@ export default function WcagInfoSection() {
         aria-expanded={isExpanded}
         aria-controls="wcag-info-content"
       >
-        <div className="flex items-center">
-          <CardTitle id="wcag-info-header">About WCAG 2.2</CardTitle>
-        </div>
+        <CardTitle id="wcag-info-header" className="text-base my-0">About WCAG 2.2</CardTitle>
         <Button 
           variant="ghost" 
           size="sm"
