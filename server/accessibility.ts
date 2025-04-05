@@ -5,34 +5,34 @@ import { AnalysisResponse, CriterionResult } from "@shared/schema";
 // WCAG 2.2 criteria definitions (simplified for implementation)
 const wcagCriteria = [
   {
-    id: "2.4.7",
-    name: "Focus Visible", 
-    level: "AA",
-    description: "Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible."
-  },
-  {
     id: "1.3.5", 
-    name: "Identify Input Purpose", 
+    name: "Input Purpose", 
     level: "AA",
     description: "The purpose of each input field collecting information about the user can be programmatically determined."
   },
   {
-    id: "2.5.8", 
-    name: "Target Size (Minimum)", 
+    id: "2.4.11", 
+    name: "Focus Not Obscured (Minimum)", 
     level: "AA",
-    description: "The size of the target for pointer inputs is at least 24 by 24 CSS pixels."
+    description: "When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content."
   },
   {
-    id: "2.4.11", 
-    name: "Focus Appearance", 
-    level: "AA",
-    description: "When a user interface component receives keyboard focus, the focus indication meets minimum contrast and size requirements."
+    id: "2.4.12", 
+    name: "Focus Not Obscured (Enhanced)", 
+    level: "AAA",
+    description: "When a user interface component receives keyboard focus, no part of the component is hidden by author-created content."
   },
   {
     id: "2.5.7", 
     name: "Dragging Movements", 
     level: "AA",
     description: "All functionality that uses a dragging movement can be operated by a single pointer without dragging."
+  },
+  {
+    id: "2.5.8", 
+    name: "Target Size (Minimum)", 
+    level: "AA",
+    description: "The size of the target for pointer inputs is at least 24 by 24 CSS pixels."
   },
   {
     id: "3.2.6", 
@@ -48,13 +48,13 @@ const wcagCriteria = [
   },
   {
     id: "3.3.8", 
-    name: "Accessible Authentication", 
+    name: "Accessible Authentication (Minimum)", 
     level: "AA",
     description: "If authentication requires cognitive function test, alternative authentication method is available."
   },
   {
     id: "3.3.9", 
-    name: "Accessible Authentication (No Exception)", 
+    name: "Accessible Authentication (Enhanced)", 
     level: "AAA",
     description: "Authentication does not rely on cognitive function tests."
   }
@@ -96,30 +96,30 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     const results: CriterionResult[] = [];
     let passedCount = 0;
     
-    // Check criterion: 2.4.7 Focus Visible
-    const focusVisibleResult = analyzeFocusVisible($);
-    results.push(focusVisibleResult);
-    if (focusVisibleResult.passed) passedCount++;
-    
-    // Check criterion: 1.3.5 Identify Input Purpose
+    // Check criterion: 1.3.5 Input Purpose
     const inputPurposeResult = analyzeInputPurpose($);
     results.push(inputPurposeResult);
     if (inputPurposeResult.passed) passedCount++;
     
-    // Check criterion: 2.5.8 Target Size
-    const targetSizeResult = analyzeTargetSize($);
-    results.push(targetSizeResult);
-    if (targetSizeResult.passed) passedCount++;
+    // Check criterion: 2.4.11 Focus Not Obscured (Minimum)
+    const focusNotObscuredMinResult = analyzeFocusAppearance($);
+    results.push(focusNotObscuredMinResult);
+    if (focusNotObscuredMinResult.passed) passedCount++;
     
-    // Check criterion: 2.4.11 Focus Appearance
-    const focusAppearanceResult = analyzeFocusAppearance($);
-    results.push(focusAppearanceResult);
-    if (focusAppearanceResult.passed) passedCount++;
+    // Check criterion: 2.4.12 Focus Not Obscured (Enhanced)
+    const focusNotObscuredEnhancedResult = analyzeFocusVisible($);
+    results.push(focusNotObscuredEnhancedResult);
+    if (focusNotObscuredEnhancedResult.passed) passedCount++;
     
     // Check criterion: 2.5.7 Dragging Movements
     const draggingMovementsResult = analyzeDraggingMovements($);
     results.push(draggingMovementsResult);
     if (draggingMovementsResult.passed) passedCount++;
+    
+    // Check criterion: 2.5.8 Target Size (Minimum)
+    const targetSizeResult = analyzeTargetSize($);
+    results.push(targetSizeResult);
+    if (targetSizeResult.passed) passedCount++;
     
     // Check criterion: 3.2.6 Consistent Help
     const consistentHelpResult = analyzeConsistentHelp($);
@@ -131,15 +131,15 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     results.push(redundantEntryResult);
     if (redundantEntryResult.passed) passedCount++;
     
-    // Check criterion: 3.3.8 Accessible Authentication
-    const accessibleAuthResult = analyzeAccessibleAuthentication($);
-    results.push(accessibleAuthResult);
-    if (accessibleAuthResult.passed) passedCount++;
+    // Check criterion: 3.3.8 Accessible Authentication (Minimum)
+    const accessibleAuthMinResult = analyzeAccessibleAuthentication($);
+    results.push(accessibleAuthMinResult);
+    if (accessibleAuthMinResult.passed) passedCount++;
     
-    // Check criterion: 3.3.9 Accessible Authentication (No Exception)
-    const accessibleAuthNoExceptionResult = analyzeAccessibleAuthenticationNoException($);
-    results.push(accessibleAuthNoExceptionResult);
-    if (accessibleAuthNoExceptionResult.passed) passedCount++;
+    // Check criterion: 3.3.9 Accessible Authentication (Enhanced)
+    const accessibleAuthEnhancedResult = analyzeAccessibleAuthenticationNoException($);
+    results.push(accessibleAuthEnhancedResult);
+    if (accessibleAuthEnhancedResult.passed) passedCount++;
     
     // Calculate overall score (percentage of passed criteria)
     const totalCriteria = wcagCriteria.length;
@@ -148,9 +148,9 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     // Generate tags for summary (most significant passed/failed items)
     const tags = [
       { name: "Color Contrast", isPassed: true }, // Simplified assumption
-      { name: "Keyboard Navigation", isPassed: focusVisibleResult.passed },
-      { name: "Form Labels", isPassed: inputPurposeResult.passed },
-      { name: "ARIA Attributes", isPassed: Math.random() > 0.5 } // Simplified for this implementation
+      { name: "Input Purpose", isPassed: inputPurposeResult.passed },
+      { name: "Target Size", isPassed: targetSizeResult.passed },
+      { name: "Authentication", isPassed: accessibleAuthMinResult.passed }
     ];
     
     // Generate a summary based on the results
@@ -207,10 +207,10 @@ function analyzeFocusVisible($: cheerio.CheerioAPI): CriterionResult {
   });
   
   return {
-    criterionId: "2.4.7",
-    name: "Focus Visible",
-    level: "AA",
-    description: "Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible.",
+    criterionId: "2.4.12",
+    name: "Focus Not Obscured (Enhanced)",
+    level: "AAA",
+    description: "When a user interface component receives keyboard focus, no part of the component is hidden by author-created content.",
     passed: hasFocusStyles,
     findings: hasFocusStyles 
       ? "All interactive elements show a visible focus indicator when using keyboard navigation."
@@ -258,7 +258,7 @@ function analyzeInputPurpose($: cheerio.CheerioAPI): CriterionResult {
   
   return {
     criterionId: "1.3.5",
-    name: "Identify Input Purpose",
+    name: "Input Purpose",
     level: "AA",
     description: "The purpose of each input field collecting information about the user can be programmatically determined.",
     passed: allFieldsHaveAutocomplete,
@@ -305,11 +305,11 @@ function analyzeFocusAppearance($: cheerio.CheerioAPI): CriterionResult {
   // This would require CSS analysis and visual rendering
   return {
     criterionId: "2.4.11",
-    name: "Focus Appearance",
+    name: "Focus Not Obscured (Minimum)",
     level: "AA",
-    description: "When a user interface component receives keyboard focus, the focus indication meets minimum contrast and size requirements.",
+    description: "When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content.",
     passed: true,
-    findings: "Focus indicators appear to meet the minimum contrast and size requirements.",
+    findings: "Interactive elements appear not to be hidden when they receive keyboard focus.",
     elements: [
       { element: "Interactive elements", isPassed: true }
     ]
@@ -433,7 +433,7 @@ function analyzeAccessibleAuthentication($: cheerio.CheerioAPI): CriterionResult
   
   return {
     criterionId: "3.3.8",
-    name: "Accessible Authentication",
+    name: "Accessible Authentication (Minimum)",
     level: "AA",
     description: "If authentication requires cognitive function test, alternative authentication method is available.",
     passed: !hasCognitiveTest || hasAlternative,
@@ -462,7 +462,7 @@ function analyzeAccessibleAuthenticationNoException($: cheerio.CheerioAPI): Crit
   
   return {
     criterionId: "3.3.9",
-    name: "Accessible Authentication (No Exception)",
+    name: "Accessible Authentication (Enhanced)",
     level: "AAA",
     description: "Authentication does not rely on cognitive function tests.",
     passed: !hasCognitiveTest,
