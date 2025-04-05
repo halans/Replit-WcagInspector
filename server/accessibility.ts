@@ -168,6 +168,8 @@ function analyzeNonTextContent($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "1.1.1",
     name: "Non-text Content",
     level: "A",
+    wcagVersion: "WCAG 2.0",
+    principle: "Perceivable",
     description: "All non-text content that is presented to the user has a text alternative that serves the equivalent purpose.",
     passed: allImagesHaveAlt,
     findings: allImagesHaveAlt 
@@ -201,6 +203,8 @@ function analyzeAudioVideo($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "1.2.1",
     name: "Audio-only and Video-only (Prerecorded)",
     level: "A",
+    wcagVersion: "WCAG 2.0",
+    principle: "Perceivable",
     description: "For prerecorded audio-only and prerecorded video-only media, alternatives are provided.",
     passed: !hasMultimedia || hasCaptions,
     findings: !hasMultimedia
@@ -254,6 +258,8 @@ function analyzeInfoRelationships($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "1.3.1",
     name: "Info and Relationships",
     level: "A",
+    wcagVersion: "WCAG 2.0",
+    principle: "Perceivable",
     description: "Information, structure, and relationships conveyed through presentation can be programmatically determined.",
     passed: passed,
     findings: passed
@@ -284,6 +290,8 @@ function analyzeUseOfColor($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "1.4.1",
     name: "Use of Color",
     level: "A",
+    wcagVersion: "WCAG 2.0",
+    principle: "Perceivable",
     description: "Color is not used as the only visual means of conveying information.",
     passed: true, // Defaulting to true since it's hard to detect automatically
     findings: "No clear instances where color alone appears to convey information were detected. Manual verification is recommended.",
@@ -319,6 +327,8 @@ function analyzeContrast($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "1.4.3",
     name: "Contrast (Minimum)",
     level: "AA",
+    wcagVersion: "WCAG 2.0",
+    principle: "Perceivable",
     description: "The visual presentation of text and images of text has a contrast ratio of at least 4.5:1.",
     passed: !potentialContrastIssues,
     findings: !potentialContrastIssues
@@ -345,6 +355,8 @@ function analyzeResizeText($: cheerio.CheerioAPI): CriterionResult {
     criterionId: "1.4.4",
     name: "Resize Text",
     level: "AA",
+    wcagVersion: "WCAG 2.0",
+    principle: "Perceivable",
     description: "Text can be resized without assistive technology up to 200 percent without loss of content or functionality.",
     passed: !hasFixedSizes,
     findings: !hasFixedSizes

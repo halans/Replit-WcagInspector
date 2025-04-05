@@ -52,8 +52,13 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
               <Badge variant="outline" className="ml-2 text-xs font-normal px-2 py-0">
                 {criterion.criterionId}
               </Badge>
+              {criterion.wcagVersion && (
+                <Badge variant="outline" className="ml-2 text-xs font-normal px-2 py-0 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800/50">
+                  {criterion.wcagVersion}
+                </Badge>
+              )}
             </div>
-            <div className="mt-1 flex items-center gap-3">
+            <div className="mt-1 flex items-center gap-3 flex-wrap">
               <Badge 
                 variant={criterion.passed ? "default" : "destructive"}
                 className={`${
@@ -65,6 +70,14 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
                 {criterion.passed ? "Passed" : "Failed"}
               </Badge>
               <p className="text-sm text-gray-500 dark:text-gray-400">Level {criterion.level}</p>
+              {criterion.principle && (
+                <Badge 
+                  variant="outline" 
+                  className="text-xs font-normal px-2 py-0.5 bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/20 dark:text-purple-300 dark:border-purple-800/50"
+                >
+                  {criterion.principle}
+                </Badge>
+              )}
             </div>
           </div>
         </div>

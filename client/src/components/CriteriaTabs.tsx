@@ -3,7 +3,7 @@ import { CriterionResult } from "@shared/schema";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import CriterionCard from "./CriterionCard";
-import { CheckCircle2, AlertCircle, ListFilter, Info } from "lucide-react";
+import { CheckCircle2, AlertCircle, ListFilter, Info, Eye, HandIcon, BrainCircuit, AccessibilityIcon } from "lucide-react";
 
 interface CriteriaTabsProps {
   criteria: CriterionResult[];
@@ -15,12 +15,26 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
   const passedCriteria = criteria.filter(criterion => criterion.passed);
   const failedCriteria = criteria.filter(criterion => !criterion.passed);
   
+  // Group criteria by principles
+  const perceivableCriteria = criteria.filter(criterion => criterion.principle === "Perceivable");
+  const operableCriteria = criteria.filter(criterion => criterion.principle === "Operable");
+  const understandableCriteria = criteria.filter(criterion => criterion.principle === "Understandable");
+  const robustCriteria = criteria.filter(criterion => criterion.principle === "Robust");
+  
   const getFilteredCriteria = () => {
     switch (activeTab) {
       case "passed":
         return passedCriteria;
       case "failed":
         return failedCriteria;
+      case "perceivable":
+        return perceivableCriteria;
+      case "operable":
+        return operableCriteria;
+      case "understandable":
+        return understandableCriteria;
+      case "robust":
+        return robustCriteria;
       default:
         return criteria;
     }
@@ -40,6 +54,8 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
 
       <CardContent className="p-6">
         <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full">
+          {/* Status Filter Tabs */}
+          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by Status</h3>
           <TabsList className="grid grid-cols-3 w-full mb-6 bg-blue-50 dark:bg-gray-900 p-1.5 rounded-lg border border-blue-100 dark:border-gray-700">
             <TabsTrigger 
               value="all" 
@@ -73,6 +89,58 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
                 <AlertCircle className="mr-1.5 h-4 w-4 text-red-600 dark:text-red-400" />
                 <span>Failed <span className="ml-1.5 font-medium bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 px-1.5 py-0.5 rounded-full text-xs">
                   {failedCriteria.length}
+                </span></span>
+              </div>
+            </TabsTrigger>
+          </TabsList>
+          
+          {/* WCAG Principles Tabs */}
+          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by WCAG Principle</h3>
+          <TabsList className="grid grid-cols-4 w-full mb-6 bg-blue-50 dark:bg-gray-900 p-1.5 rounded-lg border border-blue-100 dark:border-gray-700">
+            <TabsTrigger 
+              value="perceivable" 
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-purple-600 dark:data-[state=active]:text-purple-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <div className="flex items-center">
+                <Eye className="mr-1.5 h-4 w-4" />
+                <span>Perceivable <span className="ml-1.5 font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 px-1.5 py-0.5 rounded-full text-xs">
+                  {perceivableCriteria.length}
+                </span></span>
+              </div>
+            </TabsTrigger>
+            
+            <TabsTrigger 
+              value="operable" 
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-orange-600 dark:data-[state=active]:text-orange-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <div className="flex items-center">
+                <HandIcon className="mr-1.5 h-4 w-4" />
+                <span>Operable <span className="ml-1.5 font-medium bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 px-1.5 py-0.5 rounded-full text-xs">
+                  {operableCriteria.length}
+                </span></span>
+              </div>
+            </TabsTrigger>
+            
+            <TabsTrigger 
+              value="understandable" 
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-teal-600 dark:data-[state=active]:text-teal-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <div className="flex items-center">
+                <BrainCircuit className="mr-1.5 h-4 w-4" />
+                <span>Understandable <span className="ml-1.5 font-medium bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-200 px-1.5 py-0.5 rounded-full text-xs">
+                  {understandableCriteria.length}
+                </span></span>
+              </div>
+            </TabsTrigger>
+            
+            <TabsTrigger 
+              value="robust" 
+              className="data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 data-[state=active]:text-blue-600 dark:data-[state=active]:text-blue-400 data-[state=active]:shadow-sm rounded-md px-4 py-2 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              <div className="flex items-center">
+                <AccessibilityIcon className="mr-1.5 h-4 w-4" />
+                <span>Robust <span className="ml-1.5 font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-1.5 py-0.5 rounded-full text-xs">
+                  {robustCriteria.length}
                 </span></span>
               </div>
             </TabsTrigger>

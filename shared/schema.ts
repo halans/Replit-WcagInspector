@@ -72,6 +72,8 @@ export const criterionResultSchema = z.object({
   name: z.string(),
   level: z.string(),
   description: z.string(),
+  wcagVersion: z.string().optional(),
+  principle: z.string().optional(),
   passed: z.boolean(),
   findings: z.string(),
   elements: z.array(z.object({
