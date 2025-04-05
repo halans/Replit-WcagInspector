@@ -121,13 +121,18 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                 <FormItem className="space-y-3">
                   <FormLabel htmlFor="url-input" className="text-gray-700 dark:text-gray-300 font-medium flex items-center gap-2">
                     Website URL
-                    <div 
-                      className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 px-2 py-0.5 rounded-full inline-flex items-center cursor-pointer"
+                    <button 
+                      type="button"
+                      tabIndex={0}
+                      aria-label={showExamples ? "Hide example URLs" : "Show example URLs"}
+                      className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 px-2 py-0.5 rounded-full inline-flex items-center cursor-pointer
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                       onClick={() => setShowExamples(!showExamples)}
                     >
                       <LightbulbIcon className="h-3 w-3 mr-1" />
                       <span>{showExamples ? "Hide Examples" : "Show Examples"}</span>
-                    </div>
+                    </button>
                   </FormLabel>
                   <div className="mt-1 flex rounded-lg shadow-sm overflow-hidden border-2 border-blue-100 focus-within:border-blue-500 dark:border-blue-900 dark:focus-within:border-blue-700 transition-colors duration-200">
                     <span className="inline-flex items-center px-3 border-r-0 bg-blue-100 text-blue-700 font-medium dark:bg-blue-900/70 dark:text-blue-300 text-sm select-none">
@@ -160,8 +165,11 @@ export default function UrlInputForm({ onAnalyze, isAnalyzing }: UrlInputFormPro
                             type="button"
                             variant="outline"
                             size="sm"
+                            tabIndex={0}
                             onClick={() => insertExample(site.url)}
-                            className="text-xs bg-white dark:bg-gray-800 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                            className="text-xs bg-white dark:bg-gray-800 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50
+                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1
+                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                           >
                             <span className="truncate max-w-[200px]">{site.url}</span>
                             <Badge variant="outline" className="ml-1.5 text-[10px] px-1.5 py-0 min-h-0 h-4 bg-blue-50 dark:bg-blue-900/30">

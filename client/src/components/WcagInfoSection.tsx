@@ -8,11 +8,25 @@ export default function WcagInfoSection() {
   
   return (
     <Card>
-      <CardHeader className="pb-2 flex flex-row justify-between items-center cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
+      <CardHeader 
+        className="pb-2 flex flex-row justify-between items-center cursor-pointer" 
+        onClick={() => setIsExpanded(!isExpanded)}
+        tabIndex={0}
+        role="button"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsExpanded(!isExpanded);
+          }
+        }}
+        aria-expanded={isExpanded}
+        aria-controls="wcag-info-content"
+      >
         <CardTitle id="wcag-info-header">About WCAG 2.2</CardTitle>
         <Button 
           variant="ghost" 
-          size="sm" 
+          size="sm"
+          tabIndex={0}
           onClick={(e) => {
             e.stopPropagation();
             setIsExpanded(!isExpanded);
@@ -20,7 +34,8 @@ export default function WcagInfoSection() {
           aria-expanded={isExpanded}
           aria-controls="wcag-info-content"
           aria-label={isExpanded ? "Collapse WCAG information" : "Expand WCAG information"}
-          className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+          className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
+          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
         >
           {isExpanded ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
         </Button>
