@@ -120,19 +120,40 @@ export function exportToPdf(data: AnalysisResponse): void {
   doc.text('Analysis Report', margin, 55);
   doc.setTextColor(0, 0, 0);
   
-  // Draw wheelchair icon (simplified)
-  const iconSize = 30;
+  // Draw modern accessibility icon based on the provided image
+  const iconSize = 40;
   const iconX = pageWidth - margin - iconSize;
   const iconY = 30;
+  
+  // White circle background
   doc.setFillColor(255, 255, 255);
-  doc.circle(iconX, iconY, 8, 'F'); // Head
-  doc.setLineWidth(2);
-  doc.setDrawColor(255, 255, 255);
-  doc.line(iconX, iconY + 8, iconX, iconY + 20); // Body
-  doc.line(iconX, iconY + 12, iconX - 8, iconY + 8); // Left arm
-  doc.line(iconX, iconY + 12, iconX + 8, iconY + 8); // Right arm
-  doc.circle(iconX - 5, iconY + 25, 5, 'S'); // Left wheel
-  doc.circle(iconX + 5, iconY + 25, 5, 'S'); // Right wheel
+  doc.circle(iconX, iconY, 25, 'F');
+  
+  // Draw accessibility icon (based on the image provided)
+  doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
+  
+  // Center dot
+  doc.circle(iconX, iconY + 8, 3, 'F');
+  
+  // Inner curved lines
+  doc.setLineWidth(2.5);
+  doc.setDrawColor(59, 130, 246);
+  
+  // First arc (smallest)
+  doc.ellipse(iconX, iconY + 1, 8, 8, 'S');
+  
+  // Second arc (medium)
+  doc.ellipse(iconX, iconY - 1, 13, 13, 'S');
+  
+  // Third arc (largest)
+  doc.ellipse(iconX, iconY - 3, 18, 18, 'S');
+  
+  // Right side diagonal line
+  doc.setLineWidth(3);
+  doc.line(iconX + 10, iconY + 10, iconX + 18, iconY + 18);
+  
+  // Left side diagonal line
+  doc.line(iconX - 10, iconY + 10, iconX - 18, iconY + 18);
   
   // Set default text
   doc.setFont('helvetica', 'normal');
@@ -259,9 +280,36 @@ export function exportToPdf(data: AnalysisResponse): void {
   doc.addPage();
   currentY = 20;
   
-  // Add header
+  // Add header with icon
   doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
   doc.rect(0, 0, pageWidth, 20, 'F');
+  
+  // Add accessibility icon to header
+  const headerIconSize = 14;
+  const headerIconX = margin + 10;
+  const headerIconY = 10;
+  
+  // White circle background
+  doc.setFillColor(255, 255, 255);
+  doc.circle(headerIconX, headerIconY, 7, 'F');
+  
+  // Accessibility icon
+  doc.setFillColor(59, 130, 246);
+  doc.circle(headerIconX, headerIconY + 2, 1, 'F'); // Center dot
+  
+  doc.setLineWidth(0.8);
+  doc.setDrawColor(59, 130, 246);
+  
+  // Curved lines
+  doc.ellipse(headerIconX, headerIconY, 2.5, 2.5, 'S'); // Small arc
+  doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
+  doc.ellipse(headerIconX, headerIconY - 1, 5.5, 5.5, 'S'); // Large arc
+  
+  // Diagonal lines
+  doc.setLineWidth(1);
+  doc.line(headerIconX + 3, headerIconY + 3, headerIconX + 5, headerIconY + 5);
+  doc.line(headerIconX - 3, headerIconY + 3, headerIconX - 5, headerIconY + 5);
+  
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
@@ -279,9 +327,35 @@ export function exportToPdf(data: AnalysisResponse): void {
       doc.addPage();
       pageCount++;
       
-      // Add header to new page
+      // Add header with icon to new page
       doc.setFillColor(59, 130, 246);
       doc.rect(0, 0, pageWidth, 20, 'F');
+      
+      // Add accessibility icon to header
+      const headerIconX = margin + 10;
+      const headerIconY = 10;
+      
+      // White circle background
+      doc.setFillColor(255, 255, 255);
+      doc.circle(headerIconX, headerIconY, 7, 'F');
+      
+      // Accessibility icon
+      doc.setFillColor(59, 130, 246);
+      doc.circle(headerIconX, headerIconY + 2, 1, 'F'); // Center dot
+      
+      doc.setLineWidth(0.8);
+      doc.setDrawColor(59, 130, 246);
+      
+      // Curved lines
+      doc.ellipse(headerIconX, headerIconY, 2.5, 2.5, 'S'); // Small arc
+      doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
+      doc.ellipse(headerIconX, headerIconY - 1, 5.5, 5.5, 'S'); // Large arc
+      
+      // Diagonal lines
+      doc.setLineWidth(1);
+      doc.line(headerIconX + 3, headerIconY + 3, headerIconX + 5, headerIconY + 5);
+      doc.line(headerIconX - 3, headerIconY + 3, headerIconX - 5, headerIconY + 5);
+      
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
@@ -314,9 +388,35 @@ export function exportToPdf(data: AnalysisResponse): void {
         doc.addPage();
         pageCount++;
         
-        // Add header to new page
+        // Add header with icon to new page
         doc.setFillColor(59, 130, 246);
         doc.rect(0, 0, pageWidth, 20, 'F');
+        
+        // Add accessibility icon to header
+        const headerIconX = margin + 10;
+        const headerIconY = 10;
+        
+        // White circle background
+        doc.setFillColor(255, 255, 255);
+        doc.circle(headerIconX, headerIconY, 7, 'F');
+        
+        // Accessibility icon
+        doc.setFillColor(59, 130, 246);
+        doc.circle(headerIconX, headerIconY + 2, 1, 'F'); // Center dot
+        
+        doc.setLineWidth(0.8);
+        doc.setDrawColor(59, 130, 246);
+        
+        // Curved lines
+        doc.ellipse(headerIconX, headerIconY, 2.5, 2.5, 'S'); // Small arc
+        doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
+        doc.ellipse(headerIconX, headerIconY - 1, 5.5, 5.5, 'S'); // Large arc
+        
+        // Diagonal lines
+        doc.setLineWidth(1);
+        doc.line(headerIconX + 3, headerIconY + 3, headerIconX + 5, headerIconY + 5);
+        doc.line(headerIconX - 3, headerIconY + 3, headerIconX - 5, headerIconY + 5);
+        
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
