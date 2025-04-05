@@ -3,241 +3,68 @@ import { saveAs } from 'file-saver';
 import { AnalysisResponse, CriterionResult } from '@shared/schema';
 
 /**
- * Export analysis results to PDF with enhanced formatting
+ * Export analysis results to PDF with simple formatting
  */
 export function exportToPdf(data: AnalysisResponse): void {
-  // Create PDF with proper format detection and safe margins
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm'
-  });
-  
+  // Use default settings for PDF creation
+  const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
-  
-  // Detect if we're using A4 or Letter and adjust margins accordingly
-  // A4 is 210x297mm, Letter is 215.9x279.4mm
-  const isA4 = Math.abs(pageHeight - 297) < 1;
-  
-  // Use safe margins that work for both A4 and Letter
-  const margin = isA4 ? 20 : 15; // Slightly smaller margins for Letter
+  const margin = 15;
   const contentWidth = pageWidth - (margin * 2);
   
-  // Helper function to draw section header with background
-  const drawSectionHeader = (text: string, y: number) => {
-    // Draw background rectangle
-    doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
-    doc.rect(margin, y - 5, contentWidth, 10, 'F');
-    
-    // Draw text in white
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    doc.text(text, margin + 2, y);
-    
-    // Reset colors
-    doc.setTextColor(0, 0, 0);
-    doc.setFont('helvetica', 'normal');
-    
-    return y + 10; // Return updated Y position
-  };
+  let currentY = 20;
   
-  // Helper function to draw separator line
-  const drawSeparator = (y: number) => {
-    doc.setDrawColor(200, 200, 200);
-    doc.line(margin, y, pageWidth - margin, y);
-    doc.setDrawColor(0, 0, 0);
-    return y + 5;
-  };
-  
-  // Helper function to draw detailed result
-  const drawCriterionResult = (result: CriterionResult, y: number) => {
-    let currentY = y;
-    
-    // Draw criterion header with light background
-    doc.setFillColor(240, 249, 255); // Light blue background
-    doc.rect(margin, currentY - 2, contentWidth, 26, 'F');
-    
-    // Criterion ID and name
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text(`${result.criterionId} - ${result.name}`, margin + 2, currentY + 4);
-    currentY += 8;
-    
-    // WCAG Level and Principle
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Level ${result.level} • ${result.principle}`, margin + 2, currentY + 4);
-    currentY += 8;
-    
-    // Status badge
-    if (result.passed) {
-      doc.setFillColor(22, 163, 74); // Green
-      doc.roundedRect(margin + 2, currentY, 50, 7, 2, 2, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(10);
-      doc.text('PASSED', margin + 12, currentY + 5);
-    } else {
-      doc.setFillColor(220, 38, 38); // Red
-      doc.roundedRect(margin + 2, currentY, 50, 7, 2, 2, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(10);
-      doc.text('FAILED', margin + 12, currentY + 5);
-    }
-    doc.setTextColor(0, 0, 0);
-    currentY += 12;
-    
-    // Description
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Description:', margin, currentY);
-    doc.setFont('helvetica', 'normal');
-    const descLines = doc.splitTextToSize(result.description, contentWidth - 5);
-    doc.text(descLines, margin + 20, currentY);
-    currentY += (descLines.length * 5) + 5;
-    
-    // Findings
-    doc.setFont('helvetica', 'bold');
-    doc.text('Findings:', margin, currentY);
-    doc.setFont('helvetica', 'normal');
-    const findingsLines = doc.splitTextToSize(result.findings, contentWidth - 5);
-    doc.text(findingsLines, margin + 20, currentY);
-    currentY += (findingsLines.length * 5) + 5;
-    
-    // How to fix (if failed)
-    if (!result.passed && result.howToFix) {
-      doc.setFont('helvetica', 'bold');
-      doc.text('How to fix:', margin, currentY);
-      doc.setFont('helvetica', 'normal');
-      const fixLines = doc.splitTextToSize(result.howToFix, contentWidth - 5);
-      doc.text(fixLines, margin + 20, currentY);
-      currentY += (fixLines.length * 5) + 5;
-    }
-    
-    return currentY;
-  };
-  
-  // Cover page
-  // -------------------------------------------------------
-  // Draw header/logo section
-  doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
-  doc.rect(0, 0, pageWidth, 60, 'F');
-  
-  // Draw title
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(28);
+  // Title
+  doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
-  doc.text('WCAG Accessibility', margin, 40);
-  doc.text('Analysis Report', margin, 55);
-  doc.setTextColor(0, 0, 0);
-  
-  // Draw modern accessibility icon based on the provided image
-  const iconSize = 40;
-  const iconX = pageWidth - margin - iconSize;
-  const iconY = 30;
-  
-  // White circle background
-  doc.setFillColor(255, 255, 255);
-  doc.circle(iconX, iconY, 25, 'F');
-  
-  // Draw accessibility icon (based on the image provided)
-  doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
-  
-  // Center dot
-  doc.circle(iconX, iconY + 5, 4, 'F');
-  
-  // Inner curved lines
-  doc.setLineWidth(2.5);
-  doc.setDrawColor(59, 130, 246);
-  
-  // First arc (smallest)
-  doc.ellipse(iconX, iconY, 9, 9, 'S');
-  
-  // Second arc (medium)
-  doc.ellipse(iconX, iconY - 5, 15, 15, 'S');
-  
-  // Third arc (largest)
-  doc.ellipse(iconX, iconY - 8, 20, 20, 'S');
-  
-  // Right side diagonal line
-  doc.setLineWidth(4);
-  doc.line(iconX + 12, iconY + 12, iconX + 20, iconY + 20);
-  
-  // Left side diagonal line
-  doc.line(iconX - 12, iconY + 12, iconX - 20, iconY + 20);
-  
-  // Set default text
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(12);
-  
-  // URL and date
-  let currentY = 90;
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Website:', margin, currentY);
-  doc.setFont('helvetica', 'normal');
-  doc.text(data.url, margin + 50, currentY);
+  doc.text('WCAG Accessibility Analysis Report', pageWidth / 2, currentY, { align: 'center' });
   currentY += 10;
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Date:', margin, currentY);
+  // URL and date
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'normal');
-  doc.text(new Date().toLocaleDateString(), margin + 50, currentY);
-  currentY += 20;
+  doc.text(`Website: ${data.url}`, margin, currentY);
+  currentY += 7;
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, margin, currentY);
+  currentY += 15;
   
-  // Overall score with visual indicator
-  doc.setFontSize(16);
+  // Overall Score
+  doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
   doc.text('Overall Compliance Score', margin, currentY);
-  currentY += 15;
+  currentY += 10;
   
   const scorePercentage = Math.round((data.passedCriteria / data.totalCriteria) * 100);
   
-  // Draw score circle - matching web app design
-  const circleX = margin + 40;
-  const circleY = currentY + 25;
-  const circleRadius = 35;
-  
-  // Draw large circle with light gray background (matching the screenshot)
-  doc.setFillColor(245, 245, 245); // Very light gray
-  doc.circle(circleX, circleY, circleRadius, 'F');
-  
-  // Draw score text in blue - large and centered
-  doc.setFontSize(38); // Larger font for the percentage
-  doc.setTextColor(59, 130, 246); // Blue color
-  doc.setFont('helvetica', 'bold');
-  
-  // Center text in circle
-  const textWidth = doc.getStringUnitWidth(`${scorePercentage}%`) * 38 / doc.internal.scaleFactor;
-  doc.text(`${scorePercentage}%`, circleX - (textWidth / 2), circleY + 12);
-  doc.setTextColor(0, 0, 0);
-  
-  // Draw pass/fail details - aligned with screenshot layout
-  doc.setFontSize(16);
+  // Score information
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'normal');
-  doc.text(`${data.passedCriteria} of ${data.totalCriteria} criteria passed`, margin + 90, currentY + 15);
+  doc.text(`${data.passedCriteria} of ${data.totalCriteria} criteria passed (${scorePercentage}%)`, margin, currentY);
+  currentY += 7;
   
-  // Status with proper spacing from criteria text
+  // Status
   const statusText = scorePercentage >= 75 ? 'Good' : (scorePercentage >= 50 ? 'Needs Improvement' : 'Poor');
-  doc.setFontSize(20);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`Status: ${statusText}`, margin + 90, currentY + 40);
-  
-  currentY += 60;
+  doc.text(`Status: ${statusText}`, margin, currentY);
+  currentY += 15;
   
   // Summary
-  currentY = drawSectionHeader('Summary', currentY);
-  currentY += 10;
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Summary', margin, currentY);
+  currentY += 7;
   
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   const summaryLines = doc.splitTextToSize(data.summary, contentWidth);
   doc.text(summaryLines, margin, currentY);
-  currentY += (summaryLines.length * 6) + 15;
+  currentY += (summaryLines.length * 5) + 10;
   
-  // Draw WCAG Principles breakdown
-  currentY = drawSectionHeader('Compliance by WCAG Principle', currentY);
-  currentY += 15;
+  // WCAG Principles summary
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Compliance by WCAG Principle', margin, currentY);
+  currentY += 10;
   
   const principles = [
     { name: 'Perceivable', results: data.results.filter(r => r.principle === 'Perceivable') },
@@ -250,206 +77,86 @@ export function exportToPdf(data: AnalysisResponse): void {
     const passedCount = principle.results.filter(r => r.passed).length;
     const principlePercentage = Math.round((passedCount / principle.results.length) * 100);
     
-    // Draw principle bar
-    const barWidth = 120;
-    const barHeight = 12;
-    const filledWidth = (principlePercentage / 100) * barWidth;
-    
-    // Background bar
-    doc.setFillColor(220, 220, 220);
-    doc.roundedRect(margin + 50, currentY - 9, barWidth, barHeight, 2, 2, 'F');
-    
-    // Filled portion
-    const fillColor = principlePercentage >= 75 ? [22, 163, 74] : // Green
-                     (principlePercentage >= 50 ? [245, 158, 11] : // Orange
-                     [220, 38, 38]); // Red
-    doc.setFillColor(fillColor[0], fillColor[1], fillColor[2]);
-    
-    if (filledWidth > 0) {
-      // Make sure we have rounded corners on left, straight on right for partial fill
-      doc.roundedRect(margin + 50, currentY - 9, filledWidth, barHeight, 2, 2, 'F');
-    }
-    
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.text(`${principle.name}:`, margin, currentY);
     
     doc.setFont('helvetica', 'normal');
-    doc.text(`${principlePercentage}%`, margin + barWidth + 60, currentY);
+    doc.text(`${principlePercentage}% (${passedCount} of ${principle.results.length} passed)`, margin + 35, currentY);
     
-    doc.setFontSize(10);
-    doc.text(`(${passedCount} of ${principle.results.length} passed)`, margin + barWidth + 80, currentY);
-    
-    currentY += 20;
+    currentY += 7;
   }
   
-  // Add footer
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 100);
-  doc.text('Generated with WCAG Inspector - Page 1', pageWidth / 2, pageHeight - 10, { align: 'center' });
-  doc.setTextColor(0, 0, 0);
-  
-  // Detailed results
-  // -------------------------------------------------------
-  doc.addPage();
-  currentY = 20;
-  
-  // Add header with icon
-  doc.setFillColor(59, 130, 246); // #3B82F6 - Primary blue
-  doc.rect(0, 0, pageWidth, 20, 'F');
-  
-  // Add accessibility icon to header
-  const headerIconSize = 14;
-  const headerIconX = margin + 10;
-  const headerIconY = 10;
-  
-  // White circle background
-  doc.setFillColor(255, 255, 255);
-  doc.circle(headerIconX, headerIconY, 7, 'F');
-  
-  // Accessibility icon
-  doc.setFillColor(59, 130, 246);
-  doc.circle(headerIconX, headerIconY + 1.5, 1.2, 'F'); // Center dot
-  
-  doc.setLineWidth(0.8);
-  doc.setDrawColor(59, 130, 246);
-  
-  // Curved lines
-  doc.ellipse(headerIconX, headerIconY + 0.5, 2.5, 2.5, 'S'); // Small arc
-  doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
-  doc.ellipse(headerIconX, headerIconY - 1.5, 5.5, 5.5, 'S'); // Large arc
-  
-  // Diagonal lines
-  doc.setLineWidth(1);
-  doc.line(headerIconX + 3, headerIconY + 3, headerIconX + 5, headerIconY + 5);
-  doc.line(headerIconX - 3, headerIconY + 3, headerIconX - 5, headerIconY + 5);
-  
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.text('WCAG Accessibility Analysis Report', pageWidth / 2, 13, { align: 'center' });
-  doc.setTextColor(0, 0, 0);
-  
-  currentY = drawSectionHeader('Detailed Analysis Results', currentY + 10);
   currentY += 10;
   
-  let pageCount = 2;
+  // Detailed Results
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Detailed Results', margin, currentY);
+  currentY += 10;
   
-  // Group by principle
-  for (const principle of principles) {
-    if (currentY > pageHeight - 50) {
-      doc.addPage();
-      pageCount++;
-      
-      // Add header with icon to new page
-      doc.setFillColor(59, 130, 246);
-      doc.rect(0, 0, pageWidth, 20, 'F');
-      
-      // Add accessibility icon to header
-      const headerIconX = margin + 10;
-      const headerIconY = 10;
-      
-      // White circle background
-      doc.setFillColor(255, 255, 255);
-      doc.circle(headerIconX, headerIconY, 7, 'F');
-      
-      // Accessibility icon
-      doc.setFillColor(59, 130, 246);
-      doc.circle(headerIconX, headerIconY + 1.5, 1.2, 'F'); // Center dot
-      
-      doc.setLineWidth(0.8);
-      doc.setDrawColor(59, 130, 246);
-      
-      // Curved lines
-      doc.ellipse(headerIconX, headerIconY + 0.5, 2.5, 2.5, 'S'); // Small arc
-      doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
-      doc.ellipse(headerIconX, headerIconY - 1.5, 5.5, 5.5, 'S'); // Large arc
-      
-      // Diagonal lines
-      doc.setLineWidth(1);
-      doc.line(headerIconX + 3, headerIconY + 3, headerIconX + 5, headerIconY + 5);
-      doc.line(headerIconX - 3, headerIconY + 3, headerIconX - 5, headerIconY + 5);
-      
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.text('WCAG Accessibility Analysis Report', pageWidth / 2, 13, { align: 'center' });
+  // Add each criterion
+  let pageCount = 1;
+  
+  for (const result of data.results) {
+    // Check if we need a new page
+    if (currentY > pageHeight - 40) {
+      // Add footer to current page
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`Generated with WCAG Inspector - Page ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
       doc.setTextColor(0, 0, 0);
       
-      currentY = 30;
+      doc.addPage();
+      pageCount++;
+      currentY = 20;
     }
     
-    // Draw principle header
-    doc.setFillColor(230, 240, 250);
-    doc.rect(margin, currentY - 5, contentWidth, 10, 'F');
-    doc.setFontSize(14);
+    // Criterion ID and name
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(59, 130, 246);
-    doc.text(`${principle.name} (${principle.results.length} criteria)`, margin + 2, currentY + 2);
-    doc.setTextColor(0, 0, 0);
-    currentY += 15;
+    doc.text(`${result.criterionId} - ${result.name}`, margin, currentY);
+    currentY += 6;
     
-    // Draw each criterion in this principle
-    for (const result of principle.results) {
-      // Check if we need a new page
-      if (currentY > pageHeight - 80) {
-        // Add footer to current page
-        doc.setFontSize(8);
-        doc.setTextColor(100, 100, 100);
-        doc.text(`Generated with WCAG Inspector - Page ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
-        doc.setTextColor(0, 0, 0);
-        
-        doc.addPage();
-        pageCount++;
-        
-        // Add header with icon to new page
-        doc.setFillColor(59, 130, 246);
-        doc.rect(0, 0, pageWidth, 20, 'F');
-        
-        // Add accessibility icon to header
-        const headerIconX = margin + 10;
-        const headerIconY = 10;
-        
-        // White circle background
-        doc.setFillColor(255, 255, 255);
-        doc.circle(headerIconX, headerIconY, 7, 'F');
-        
-        // Accessibility icon
-        doc.setFillColor(59, 130, 246);
-        doc.circle(headerIconX, headerIconY + 1.5, 1.2, 'F'); // Center dot
-        
-        doc.setLineWidth(0.8);
-        doc.setDrawColor(59, 130, 246);
-        
-        // Curved lines
-        doc.ellipse(headerIconX, headerIconY + 0.5, 2.5, 2.5, 'S'); // Small arc
-        doc.ellipse(headerIconX, headerIconY - 0.5, 4, 4, 'S'); // Medium arc
-        doc.ellipse(headerIconX, headerIconY - 1.5, 5.5, 5.5, 'S'); // Large arc
-        
-        // Diagonal lines
-        doc.setLineWidth(1);
-        doc.line(headerIconX + 3, headerIconY + 3, headerIconX + 5, headerIconY + 5);
-        doc.line(headerIconX - 3, headerIconY + 3, headerIconX - 5, headerIconY + 5);
-        
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.text('WCAG Accessibility Analysis Report', pageWidth / 2, 13, { align: 'center' });
-        doc.setTextColor(0, 0, 0);
-        
-        currentY = 30;
-      }
-      
-      currentY = drawCriterionResult(result, currentY);
-      currentY = drawSeparator(currentY);
-      currentY += 5;
+    // WCAG level and status
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const statusText = result.passed ? 'Passed' : 'Failed';
+    doc.text(`Level ${result.level} | ${result.principle} | ${statusText}`, margin, currentY);
+    currentY += 6;
+    
+    // Description
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    const descLines = doc.splitTextToSize(result.description, contentWidth);
+    doc.text(descLines, margin, currentY);
+    currentY += (descLines.length * 4) + 4;
+    
+    // Findings
+    doc.setFont('helvetica', 'normal');
+    const findingsLines = doc.splitTextToSize(`Findings: ${result.findings}`, contentWidth);
+    doc.text(findingsLines, margin, currentY);
+    currentY += (findingsLines.length * 4) + 4;
+    
+    // How to fix (if failed)
+    if (!result.passed && result.howToFix) {
+      const fixLines = doc.splitTextToSize(`How to fix: ${result.howToFix}`, contentWidth);
+      doc.text(fixLines, margin, currentY);
+      currentY += (fixLines.length * 4) + 4;
     }
+    
+    // Add a separator line
+    doc.setDrawColor(200, 200, 200);
+    doc.line(margin, currentY, pageWidth - margin, currentY);
+    doc.setDrawColor(0, 0, 0);
+    currentY += 8;
   }
   
   // Add footer to last page
   doc.setFontSize(8);
   doc.setTextColor(100, 100, 100);
   doc.text(`Generated with WCAG Inspector - Page ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+  doc.setTextColor(0, 0, 0);
   
   // Save the PDF
   doc.save(`accessibility-report-${new Date().toISOString().split('T')[0]}.pdf`);

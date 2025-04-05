@@ -27,11 +27,10 @@ export default function ExportButtons({ results, isDisabled = false }: ExportBut
   return (
     <div className="flex items-center gap-2">
       <Button
-        variant="outline"
         size="sm"
         onClick={handlePdfExport}
         disabled={isDisabled}
-        className="flex items-center gap-1 border-blue-200 text-blue-700 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:border-blue-700 dark:hover:bg-blue-900/30"
+        className="flex items-center gap-1 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
         aria-label="Export as PDF"
         tabIndex={0}
       >
@@ -40,11 +39,10 @@ export default function ExportButtons({ results, isDisabled = false }: ExportBut
       </Button>
       
       <Button
-        variant="outline"
         size="sm"
         onClick={handleCsvExport}
         disabled={isDisabled}
-        className="flex items-center gap-1 border-blue-200 text-blue-700 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:border-blue-700 dark:hover:bg-blue-900/30"
+        className="flex items-center gap-1 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
         aria-label="Export as CSV"
         tabIndex={0}
       >
