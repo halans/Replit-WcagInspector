@@ -1,6 +1,8 @@
-# WCAG Accessibility Analyzer
+# WCAG Accessibility Inspector
 
-A comprehensive web accessibility analysis tool that evaluates websites against WCAG standards, providing in-depth insights and compliance assessments.
+A comprehensive web accessibility analysis tool that evaluates websites against WCAG 2.2 standards, providing in-depth insights and compliance assessments.
+
+**Live Demo:** [https://wcag-inspector.replit.app](https://wcag-inspector.replit.app)
 
 ## Features
 
@@ -10,6 +12,16 @@ A comprehensive web accessibility analysis tool that evaluates websites against 
 - Detailed Analysis Reports: View detailed findings and recommendations for each criterion
 - Code-level Insights: Identifies specific HTML elements with accessibility issues
 - Actionable Recommendations: Provides clear guidance on how to fix accessibility problems
+- Export Options: Download reports as PDF or CSV for sharing and documentation
+
+## Recent Updates
+
+- Improved keyboard navigation and focus management for better accessibility
+- Added dark mode support with system theme detection
+- Enhanced PDF export functionality with clean, readable formatting
+- Implemented SEO optimizations including meta tags, robots.txt, and sitemap
+- Added comprehensive user interface for filtering and exploring results
+- Fixed various accessibility issues to ensure the tool itself is accessible
 
 ## Tech Stack
 
@@ -19,6 +31,7 @@ A comprehensive web accessibility analysis tool that evaluates websites against 
 - Form Validation: Zod and React Hook Form
 - Data Fetching: TanStack Query
 - Routing: Wouter
+- Export: jsPDF for PDF generation, file-saver for downloads
 
 ## Usage
 
@@ -27,6 +40,7 @@ A comprehensive web accessibility analysis tool that evaluates websites against 
 3. View the overall accessibility score and breakdown by criteria
 4. Filter results by status (Passed/Failed) or by WCAG principle
 5. Expand individual criteria cards to see detailed findings, elements with issues, and recommendations
+6. Export results as PDF or CSV using the export buttons
 
 ## Understanding WCAG Principles
 
@@ -52,8 +66,8 @@ This tool provides automated accessibility checking but cannot catch all possibl
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/wcag-accessibility-analyzer.git
-   cd wcag-accessibility-analyzer
+   git clone https://github.com/yourusername/wcag-accessibility-inspector.git
+   cd wcag-accessibility-inspector
    ```
 
 2. Install dependencies:
@@ -79,7 +93,7 @@ This tool provides automated accessibility checking but cannot catch all possibl
 1. Fork this project on Replit
 2. The application will automatically use Replit's built-in hosting
 3. Click the 'Run' button to start the server
-4. Your app will be available at your-repl-name.your-username.repl.co
+4. Your app will be available at your-repl-name.replit.app
 
 ### Deploying on Other Platforms
 
