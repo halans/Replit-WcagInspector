@@ -20,17 +20,28 @@ export default function Home() {
     error,
     refetch
   } = useQuery<AnalysisResponse>({
-    queryKey: [`/api/analyze?url=${encodeURIComponent(url)}`],
-    enabled: false, // Don't run query on component mount
+    queryKey: [`/api/analyze`, url],
+    queryFn: async () => {
+      if (!url) return null;
+      const response = await fetch(`/api/analyze?url=${encodeURIComponent(url)}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to analyze website');
+      }
+      return response.json();
+    },
+    enabled: url !== "", // Only enable when URL is set
   });
 
   // Handle URL submission
   const handleAnalyze = async (submittedUrl: string) => {
-    setUrl(submittedUrl);
     setIsAnalyzing(true);
+    setUrl(submittedUrl);
     
     try {
       await refetch();
+    } catch (error) {
+      console.error("Analysis error:", error);
     } finally {
       setIsAnalyzing(false);
     }

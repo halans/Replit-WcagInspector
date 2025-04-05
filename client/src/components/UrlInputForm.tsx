@@ -14,9 +14,9 @@ import { useToast } from "@/hooks/use-toast";
 const formSchema = z.object({
   url: z.string().min(1, "URL is required").refine(
     (value) => {
-      // Basic URL validation pattern (simplified for demonstration)
+      // Basic URL validation pattern (accepts domain format)
       const urlPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
-      return urlPattern.test(value);
+      return urlPattern.test(value) || value.startsWith('http');
     },
     { message: "Please enter a valid URL (e.g., example.com)" }
   )
