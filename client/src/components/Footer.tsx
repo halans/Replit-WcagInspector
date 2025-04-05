@@ -22,13 +22,23 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center">
+                <a 
+                  href="https://www.w3.org/WAI/standards-guidelines/wcag/" 
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm"
+                  tabIndex={0}
+                >
                   <Book className="h-4 w-4 mr-2" />
                   WCAG 2.2 Documentation
                 </a>
               </li>
               <li>
-                <a href="https://www.w3.org/WAI/WCAG22/quickref/" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center">
+                <a 
+                  href="https://www.w3.org/WAI/WCAG22/quickref/" 
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm"
+                  tabIndex={0}
+                >
                   <Code className="h-4 w-4 mr-2" />
                   How to Meet WCAG
                 </a>
@@ -40,13 +50,27 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Get Involved</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center">
+                <a 
+                  href="https://github.com/halans/Replit-WcagInspector" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm"
+                  tabIndex={0}
+                >
                   <HeartHandshake className="h-4 w-4 mr-2" />
                   Contribute to Project
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center">
+                <a 
+                  href="https://github.com/halans/Replit-WcagInspector/issues/new" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors text-sm flex items-center
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm"
+                  tabIndex={0}
+                >
                   <BugIcon className="h-4 w-4 mr-2" />
                   Report an Issue
                 </a>
@@ -57,7 +81,7 @@ export default function Footer() {
           <div className="space-y-3">
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">About</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              This tool is provided for educational purposes to help developers and content creators understand and implement accessibility best practices.
+              This tool is provided for educational purposes to help developers and content creators understand and implement accessibility best practices. Generated using Replit Agent to demonstrate accessibility-first development principles.
             </p>
           </div>
         </div>
@@ -69,10 +93,20 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} WCAG 2.2 Accessibility Analyzer. All rights reserved.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+            <a 
+              href="/privacy-policy" 
+              className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm px-1"
+              tabIndex={0}
+            >
               Privacy Policy
             </a>
-            <a href="#" className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+            <a 
+              href="/terms-of-service" 
+              className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded-sm px-1"
+              tabIndex={0}
+            >
               Terms of Service
             </a>
           </div>
