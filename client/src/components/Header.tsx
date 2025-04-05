@@ -80,7 +80,7 @@ export default function Header() {
               <AccessibilityIcon className="text-blue-600 dark:text-blue-400 h-6 w-6" aria-hidden="true" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">WCAG 2.2 Accessibility Analyzer</h1>
+              <h1 className="text-xl font-heading font-bold text-white">WCAG 2.2 Accessibility Analyzer</h1>
               <div className="flex items-center mt-1">
                 <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 mr-2">
                   <CheckCircle2 className="h-3 w-3 mr-1" /> WCAG 2.2

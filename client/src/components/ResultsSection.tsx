@@ -33,7 +33,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
               <span className="sr-only">Loading...</span>
               <GaugeCircle className="h-12 w-12 text-blue-600 dark:text-blue-400" />
             </div>
-            <h3 className="text-lg font-medium mb-2">Analyzing Website...</h3>
+            <h3 className="text-lg font-heading font-bold mb-2">Analyzing Website...</h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-md">
               We're checking the website against WCAG 2.2 criteria. This may take a few moments.
             </p>
@@ -52,7 +52,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
             <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full mb-4">
               <AlertCircle className="h-8 w-8 text-red-600 dark:text-red-400" />
             </div>
-            <h3 className="text-lg font-medium text-red-600 dark:text-red-400 mb-2">Error Analyzing Website</h3>
+            <h3 className="text-lg font-heading font-bold text-red-600 dark:text-red-400 mb-2">Error Analyzing Website</h3>
             <p className="text-gray-600 dark:text-gray-300 text-sm text-center max-w-md">
               {error}
             </p>
@@ -100,7 +100,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                   <Globe className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <h2 id="results-header" className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+                  <h2 id="results-header" className="text-xl font-heading font-bold text-gray-900 dark:text-white flex items-center">
                     {results.url}
                   </h2>
                   <div className="flex items-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -121,7 +121,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
           {/* Overall score card */}
           <div className="p-6 md:p-8">
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+              <h3 className="text-xl font-heading font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                 <GaugeCircle className="mr-2 h-5 w-5 text-blue-600 dark:text-blue-400" />
                 Overall Accessibility Score
               </h3>
@@ -143,7 +143,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                             ? "text-green-600 dark:text-green-400" 
                             : "text-amber-500 dark:text-amber-400"
                         }`} />
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <h4 className="text-lg font-heading font-bold text-gray-900 dark:text-white">
                           {results.passedCriteria} of {results.totalCriteria} criteria passed
                         </h4>
                       </div>
@@ -162,7 +162,7 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                     </div>
                     
                     <div>
-                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-3 flex items-center">
+                      <h4 className="text-base font-heading font-bold text-gray-900 dark:text-white mb-3 flex items-center">
                         <Tag className="mr-2 h-4 w-4 text-blue-600 dark:text-blue-400" />
                         Analysis Summary
                       </h4>

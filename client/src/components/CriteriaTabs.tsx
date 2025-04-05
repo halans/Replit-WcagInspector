@@ -45,7 +45,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
       <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center">
           <ListFilter className="mr-2 h-5 w-5 text-blue-600 dark:text-blue-400" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">WCAG 2.2 Success Criteria</h2>
+          <h2 className="text-xl font-heading font-bold text-gray-900 dark:text-white">WCAG 2.2 Success Criteria</h2>
         </div>
         <p className="text-gray-600 dark:text-gray-400 text-sm">
           View details on individual success criteria and filter by status.
@@ -55,7 +55,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
       <CardContent className="p-6">
         <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Status Filter Tabs */}
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by Status</h3>
+          <h3 className="text-sm font-heading font-semibold text-gray-700 dark:text-gray-300 mb-2">Filter by Status</h3>
           <TabsList className="grid grid-cols-3 w-full mb-6 bg-blue-50 dark:bg-gray-900 p-1.5 rounded-lg border border-blue-100 dark:border-gray-700">
             <TabsTrigger 
               value="all" 
@@ -95,7 +95,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
           </TabsList>
           
           {/* WCAG Principles Tabs */}
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by WCAG Principle</h3>
+          <h3 className="text-sm font-heading font-semibold text-gray-700 dark:text-gray-300 mb-2">Filter by WCAG Principle</h3>
           <TabsList className="grid grid-cols-4 w-full mb-6 bg-blue-50 dark:bg-gray-900 p-1.5 rounded-lg border border-blue-100 dark:border-gray-700">
             <TabsTrigger 
               value="perceivable" 
@@ -150,7 +150,7 @@ export default function CriteriaTabs({ criteria }: CriteriaTabsProps) {
             {getFilteredCriteria().length === 0 ? (
               <div className="text-center py-16 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-dashed border-gray-200 dark:border-gray-700">
                 <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Criteria Found</h3>
+                <h3 className="text-lg font-heading font-bold text-gray-900 dark:text-white mb-2">No Criteria Found</h3>
                 <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
                   No criteria match the selected filter. Try changing your filter selection.
                 </p>

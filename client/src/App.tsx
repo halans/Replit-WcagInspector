@@ -25,7 +25,10 @@ function App() {
     <ThemeProvider defaultTheme="light" storageKey="wcag-analyzer-theme">
       <QueryClientProvider client={queryClient}>
         {/* Skip to content link for keyboard users */}
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-primary-600 focus:text-white focus:p-2">
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-3 focus:rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
+        >
           Skip to content
         </a>
         <Router />

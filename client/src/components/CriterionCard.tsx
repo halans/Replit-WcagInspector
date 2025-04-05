@@ -59,7 +59,7 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
           </div>
           <div>
             <div className="flex items-center flex-wrap gap-2">
-              <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
+              <CardTitle className="text-lg font-heading font-bold text-gray-900 dark:text-white">
                 {criterion.name}
               </CardTitle>
               <Badge variant="outline" className="ml-2 text-xs font-normal px-2 py-0">
@@ -121,7 +121,7 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
           <Separator className="h-px bg-gray-200 dark:bg-gray-700" />
           <CardContent className="p-5 space-y-6 bg-white dark:bg-gray-800">
             <div>
-              <h5 className="text-sm font-medium text-blue-700 dark:text-blue-400 mb-2 flex items-center">
+              <h5 className="text-sm font-heading font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center">
                 Description
                 <span className="ml-2 h-px flex-grow bg-blue-100 dark:bg-blue-900/50"></span>
               </h5>
@@ -131,7 +131,7 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
             </div>
             
             <div>
-              <h5 className="text-sm font-medium text-blue-700 dark:text-blue-400 mb-2 flex items-center">
+              <h5 className="text-sm font-heading font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center">
                 Findings
                 <span className="ml-2 h-px flex-grow bg-blue-100 dark:bg-blue-900/50"></span>
               </h5>
@@ -162,7 +162,7 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
             </div>
             
             <div>
-              <h5 className="text-sm font-medium text-blue-700 dark:text-blue-400 mb-2 flex items-center">
+              <h5 className="text-sm font-heading font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center">
                 {criterion.passed ? "Elements Checked" : "Elements with Issues"}
                 <span className="ml-2 h-px flex-grow bg-blue-100 dark:bg-blue-900/50"></span>
               </h5>
@@ -209,7 +209,7 @@ export default function CriterionCard({ criterion }: CriterionCardProps) {
             
             {criterion.howToFix && (
               <div>
-                <h5 className="text-sm font-medium text-blue-700 dark:text-blue-400 mb-2 flex items-center">
+                <h5 className="text-sm font-heading font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center">
                   How to Fix
                   <span className="ml-2 h-px flex-grow bg-blue-100 dark:bg-blue-900/50"></span>
                 </h5>

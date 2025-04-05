@@ -20,11 +20,11 @@ export default function IntroSection() {
             WCAG 2.2 Compliant Analyzer
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-blue-300 mb-4 leading-tight tracking-tight">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-blue-300 mb-4 leading-tight tracking-tight">
             Website Accessibility Analyzer
           </h1>
           
-          <p className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg md:text-xl leading-relaxed mb-6">
+          <p className="font-sans text-gray-700 dark:text-gray-300 max-w-3xl text-lg md:text-xl leading-relaxed mb-6">
             Make your website accessible to <span className="text-blue-600 dark:text-blue-400 font-medium">everyone</span>. 
             Quickly analyze your site's compliance with WCAG 2.2 guidelines and get actionable recommendations.
           </p>
@@ -57,7 +57,7 @@ export default function IntroSection() {
               <div className="bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 p-3 rounded-xl mb-4">
                 <CheckSquare className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2">Quick Assessment</h3>
+              <h3 className="font-heading font-bold text-gray-900 dark:text-white text-lg mb-2">Quick Assessment</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Get immediate insights on how well your website meets accessibility standards 
                 with our automated testing tool.
@@ -72,7 +72,7 @@ export default function IntroSection() {
               <div className="bg-gradient-to-br from-amber-100 to-amber-200 dark:from-amber-900/30 dark:to-amber-800/30 p-3 rounded-xl mb-4">
                 <AlertTriangle className="h-6 w-6 text-amber-600 dark:text-amber-400" />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2">Identify Issues</h3>
+              <h3 className="font-heading font-bold text-gray-900 dark:text-white text-lg mb-2">Identify Issues</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Discover potential accessibility barriers that might prevent users with 
                 disabilities from accessing your content.
@@ -87,7 +87,7 @@ export default function IntroSection() {
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 p-3 rounded-xl mb-4">
                 <Lightbulb className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2">Get Solutions</h3>
+              <h3 className="font-heading font-bold text-gray-900 dark:text-white text-lg mb-2">Get Solutions</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Receive actionable recommendations on how to fix detected accessibility 
                 issues and improve your website's compliance.

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-3">
             <AccessibilityIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-            <span className="text-xl font-semibold text-gray-900 dark:text-white">
+            <span className="text-xl font-heading font-bold text-gray-900 dark:text-white">
               WCAG 2.2 Accessibility Analyzer
             </span>
           </div>
@@ -19,7 +19,7 @@ export default function Footer() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-4">
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Resources</h3>
+            <h3 className="text-sm font-heading font-bold text-gray-900 dark:text-white uppercase tracking-wider">Resources</h3>
             <ul className="space-y-2">
               <li>
                 <a 
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
           
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">Get Involved</h3>
+            <h3 className="text-sm font-heading font-bold text-gray-900 dark:text-white uppercase tracking-wider">Get Involved</h3>
             <ul className="space-y-2">
               <li>
                 <a 
@@ -79,7 +79,7 @@ export default function Footer() {
           </div>
           
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">About</h3>
+            <h3 className="text-sm font-heading font-bold text-gray-900 dark:text-white uppercase tracking-wider">About</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               This tool is provided for educational purposes to help developers and content creators understand and implement accessibility best practices. Generated using Replit Agent to demonstrate accessibility-first development principles.
             </p>
