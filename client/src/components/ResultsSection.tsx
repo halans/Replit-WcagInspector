@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, GaugeCircle, Tag, Globe, Calendar, CheckCircleIcon } from "lucide-react";
+import { AlertCircle, GaugeCircle, Tag, Globe, Calendar, CheckCircleIcon, InfoIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { AnalysisResponse } from "@shared/schema";
@@ -165,6 +165,15 @@ export default function ResultsSection({ results, isLoading, isError, error }: R
                       <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                         {results.summary}
                       </p>
+                      <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md border border-blue-100 dark:border-blue-900/30 mb-4 text-sm">
+                        <p className="text-blue-800 dark:text-blue-300 flex items-start">
+                          <InfoIcon className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>
+                            This analysis focuses on 9 key WCAG 2.2 success criteria. A full WCAG compliance check would include all 
+                            78 success criteria across levels A, AA, and AAA.
+                          </span>
+                        </p>
+                      </div>
                       <div className="flex flex-wrap gap-2">
                         {results.tags.map((tag, index) => (
                           <Badge 

@@ -99,9 +99,23 @@ export default function IntroSection() {
         <InfoIcon className="h-5 w-5" />
         <AlertTitle className="text-blue-800 dark:text-blue-300 font-medium">About This Tool</AlertTitle>
         <AlertDescription className="text-blue-700/90 dark:text-blue-300/90">
-          This tool analyzes websites against nine specific WCAG 2.2 success criteria related to keyboard navigation, target size, 
-          authentication, and more. Enter a URL below to get started. For comprehensive accessibility audits, we recommend combining 
-          these automated checks with manual testing.
+          <p className="mb-2">
+            This tool analyzes websites against nine specific WCAG 2.2 success criteria that were newly introduced
+            or updated in the latest standard. These include:
+          </p>
+          <ul className="list-disc pl-5 mb-2 space-y-1 text-sm">
+            <li>Focus Not Obscured (Minimum & Enhanced)</li>
+            <li>Focus Appearance</li>
+            <li>Dragging Movements</li>
+            <li>Target Size (Minimum)</li>
+            <li>Consistent Help</li>
+            <li>Redundant Entry</li>
+            <li>Accessible Authentication (Minimum & Enhanced)</li>
+          </ul>
+          <p>
+            Future versions may expand to cover all 78 WCAG success criteria. For comprehensive accessibility audits, 
+            we recommend combining these automated checks with manual testing.
+          </p>
         </AlertDescription>
       </Alert>
     </section>
