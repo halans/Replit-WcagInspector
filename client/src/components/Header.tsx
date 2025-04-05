@@ -72,7 +72,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-blue-600 to-indigo-700 shadow-md dark:from-blue-800 dark:to-indigo-900">
+    <header role="banner" aria-label="Site header" className="bg-gradient-to-r from-blue-600 to-indigo-700 shadow-md dark:from-blue-800 dark:to-indigo-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center">

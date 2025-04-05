@@ -51,24 +51,30 @@ export default function Home() {
     <div className="bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
       <Header />
       
-      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
+      <main id="main-content" role="main" aria-label="Main content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
         <IntroSection />
         
-        <UrlInputForm 
-          onAnalyze={handleAnalyze} 
-          isAnalyzing={isAnalyzing} 
-        />
+        <section aria-labelledby="url-input-header">
+          <UrlInputForm 
+            onAnalyze={handleAnalyze} 
+            isAnalyzing={isAnalyzing} 
+          />
+        </section>
         
         {results && (
-          <ResultsSection 
-            results={results} 
-            isLoading={isLoading}
-            isError={isError}
-            error={error instanceof Error ? error.message : "An unknown error occurred"}
-          />
+          <section aria-label="Analysis results">
+            <ResultsSection 
+              results={results} 
+              isLoading={isLoading}
+              isError={isError}
+              error={error instanceof Error ? error.message : "An unknown error occurred"}
+            />
+          </section>
         )}
         
-        <WcagInfoSection />
+        <section aria-label="WCAG information">
+          <WcagInfoSection />
+        </section>
       </main>
       
       <Footer />
